@@ -1,0 +1,123 @@
+/* Wrap whole page */
+.corporate-page-wrapper {
+  background: var(--bg-white);
+  padding-bottom: 70px; /* slightly increased for cleaner layout */
+}
+
+/* ---------------------------
+   GLOBAL BANNER – with dark overlay
+   --------------------------- */
+.corporate-banner {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  margin-bottom: 70px; /* improved vertical spacing */
+  position: relative;
+}
+
+.corporate-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark overlay for better header visibility */
+.corporate-banner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35); /* adjust intensity as needed */
+  pointer-events: none;
+}
+
+/* ---------------------------
+   Title Styling
+   --------------------------- */
+.corporate-title {
+  font-weight: 700 !important;
+  color: #212529;
+  margin-bottom: 30px !important;
+  text-transform: capitalize;
+  text-align: left !important;
+}
+
+/* ---------------------------
+   Content Styling
+   --------------------------- */
+.corporate-text {
+  font-size: 1.15rem !important;
+  line-height: 1.9 !important; /* improved readability */
+  color: var(--text-dark);
+  white-space: pre-line;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* ---------------------------
+   Right-Side Image (now small & equal size)
+   --------------------------- */
+.corporate-side-image-wrapper {
+  width: 260px; /* fixed width */
+  height: 260px; /* fixed height → perfect square */
+  border-radius: 16px; /* more attractive roundness */
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.corporate-side-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------------------------
+   Layout Spacing
+   --------------------------- */
+.corporate-layout {
+  align-items: flex-start; /* normal bootstrap behavior */
+}
+
+@media (max-width: 992px) {
+  .corporate-layout {
+    flex-direction: column; /* image comes below ONLY on mobile */
+  }
+}
+
+.corporate-image-col {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* ---------------------------
+   Mobile Responsive
+   --------------------------- */
+@media (max-width: 992px) {
+  .corporate-banner {
+    height: 240px;
+    margin-bottom: 50px;
+  }
+
+  .corporate-title {
+    text-align: center;
+  }
+
+  .corporate-side-image-wrapper {
+    width: 200px;
+    height: 200px;
+    border-radius: 14px;
+  }
+
+  .corporate-layout {
+    gap: 30px;
+  }
+
+  .corporate-image-col {
+    margin-top: 30px;
+  }
+}

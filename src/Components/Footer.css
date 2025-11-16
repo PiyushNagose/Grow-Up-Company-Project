@@ -1,0 +1,138 @@
+/* Footer.css - replace the whole file with this */
+
+/* ---------- MAIN WRAPPER (matches className in Footer.js) ---------- */
+.site-footer {
+  background-color: var(--pokrovske-green, #0f4a0f) !important;
+  color: #ffffff !important;
+  padding: 50px 0;
+  position: relative;
+  z-index: 1;
+  background-image: none !important;
+}
+
+/* ---------- BRAND / LOGO ---------- */
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.footer-company {
+    margin-left: 2.75rem !important;
+    line-height: 0 !important;
+    
+}
+.footer-logo {
+  width: 13rem; /* increased size */
+  height: auto;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* company text under logo — matches class used in Footer.js */
+
+/* ---------- HEADINGS ---------- */
+.footer-heading {
+  color: #ffffff;
+  margin-bottom: 14px !important;
+  font-weight: 700 !important;
+  font-size: 1.45rem !important; /* larger heading */
+  letter-spacing: 0.4px;
+}
+
+/* ---------- LISTS & LINKS ---------- */
+.footer-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.footer-arrow {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 6px;
+  opacity: 0.8;
+  transition: transform 0.25s ease;
+}
+
+.footer-link:hover .footer-arrow {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+.footer-list-item {
+  margin-bottom: 8px;
+}
+
+.footer-link {
+  color: #ffffff;
+  opacity: 0.9;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.22s ease;
+  position: relative;
+  padding-left: 0; /* keep no chevron by default */
+}
+
+/* Hover and underline reveal */
+.footer-link:hover {
+  opacity: 1;
+  transform: translateX(4px);
+  text-decoration: underline;
+  line-height: 0.5rem;
+}
+
+.footer-link::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 1px;
+  background-color: #fff;
+  transition: width 0.22s ease;
+}
+.footer-link:hover::after {
+  width: 100%;
+}
+
+/* ---------- CONTACTS ---------- */
+.footer-contact {
+  color: #ffffff;
+  font-size: 0.95rem;
+  opacity: 0.95;
+  margin-bottom: 8px;
+  line-height: 2rem !important;
+}
+
+.footer-email .footer-link,
+.footer-email a {
+  color: #ffffff;
+  opacity: 0.95;
+  text-decoration: none;
+}
+.footer-email .footer-link:hover,
+.footer-email a:hover {
+  text-decoration: underline;
+  opacity: 1;
+}
+
+/* ---------- UTILITY / RESET ---------- */
+/* hide default HRs or bootstrap borders that might show up */
+.site-footer hr,
+.site-footer .border-top,
+.site-footer .border-bottom,
+footer hr {
+  display: none !important;
+}
+
+/* responsive tweaks */
+@media (max-width: 991px) {
+  .footer-logo {
+    width: 72px;
+  }
+  .footer-heading {
+    font-size: 1.15rem !important;
+  }
+  .site-footer {
+    padding: 36px 0;
+  }
+}

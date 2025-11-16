@@ -1,0 +1,88 @@
+/* src/index.css */
+
+/* ==================================== */
+/* GLOBAL RESET & FONT */
+/* ==================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* FONT FIX: Set Montserrat as the global primary font */
+  font-family: "Montserrat", sans-serif;
+}
+
+/* ==================================== */
+/* COLOR VARIABLES */
+/* ==================================== */
+:root {
+  --pokrovske-green: #005000; /* Deep Forest Green */
+  --text-dark: #333333;
+  --bg-light: #f4f4f4;
+  --bg-white: #ffffff;
+}
+
+/* ==================================== */
+/* BASE BODY & LINK STYLES */
+/* ==================================== */
+body {
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==================================== */
+/* FIXED HEADER UTILITY */
+/* ==================================== */
+main {
+  min-height: 80vh;
+}
+
+/* ==================================== */
+/* REUSABLE LINK ANIMATION */
+/* ==================================== */
+/* This class provides the smooth left-to-right sliding underline effect for links */
+.link-hover-underline {
+  position: relative;
+  padding-bottom: 3px;
+  display: inline-block;
+  transition: opacity 0.3s ease;
+}
+
+/* Create the underline pseudo-element */
+.link-hover-underline::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.4s ease-out;
+}
+
+/* Expand the line on hover */
+.link-hover-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* ==================================== */
+/* HOME PAGE & CATEGORY CARD EFFECTS */
+/* ==================================== */
+/* Custom CSS for Category Card Hover Effects */
+.MuiCard-root:hover .category-card-image {
+  transform: scale(1.05);
+  transition: transform 0.5s ease-out;
+}
+
+/* Also ensure the arrow icon slides up on hover for the CategoryCard */
+.MuiCard-root:hover .product-tile-content .product-arrow-icon {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.3s, transform 0.3s ease-out;
+}
