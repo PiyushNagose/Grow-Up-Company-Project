@@ -8,7 +8,7 @@ import { Typography, Box } from "@mui/material";
 import "./Footer.css";
 
 const Footer = () => {
-  // --- 1. Navigation Data ---
+  // --- Navigation Data ---
   const corporateLinks = [
     { name: "Quality policy", slug: "quality-policy" },
     { name: "Vision mission", slug: "vision-mission" },
@@ -30,13 +30,12 @@ const Footer = () => {
     { name: "Squash", slug: "squash" },
   ];
 
-  // --- 2. Reusable Column Component ---
+  // --- Reusable Footer Column ---
   const FooterCol = ({ title, links, baseRoute }) => (
-    <Col xs={6} md={3} lg={2} className="mb-4 footer-col">
+    <Col xs={6} sm={6} md={2} lg={2} className="mb-4 footer-col">
       <Typography variant="h6" className="mb-3 footer-heading">
         {title}
       </Typography>
-
       <ul className="list-unstyled footer-list">
         {links.map((link, index) => (
           <li key={index} className="mb-2 footer-list-item">
@@ -62,13 +61,13 @@ const Footer = () => {
     </Col>
   );
 
-  // --- 3. Main Footer Structure ---
+  // --- Main Footer ---
   return (
     <Box component="footer" className="site-footer">
       <Container>
-        <Row>
-          {/* Logo + Text */}
-          <Col xs={12} md={6} lg={3} className="mb-4 footer-brand-col">
+        <Row className="align-items-start">
+          {/* Logo */}
+          <Col xs={6} sm={6} md={3} lg={3} className="mb-4 footer-brand-col">
             <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
               <img
                 src="/images/Logo.svg"
@@ -81,7 +80,7 @@ const Footer = () => {
             </Typography>
           </Col>
 
-          {/* Footer Navigation Columns */}
+          {/* Footer Navigation */}
           <FooterCol
             title="Corporate"
             links={corporateLinks}
@@ -95,19 +94,16 @@ const Footer = () => {
           />
 
           {/* Contacts */}
-          <Col xs={12} md={6} lg={3} className="mb-4 footer-col">
+          <Col xs={6} sm={6} md={3} lg={3} className="mb-4 footer-col">
             <Typography variant="h6" className="mb-3 footer-heading">
               Contacts
             </Typography>
-
             <Typography variant="body2" className="footer-contact">
               +90 534 29 29 764
             </Typography>
-
             <Typography variant="body2" className="footer-contact">
               +90 545 78 59 035
             </Typography>
-
             <Typography variant="body2" className="footer-email">
               <a
                 href="mailto:freshveggies.info@gmail.com"

@@ -1,103 +1,205 @@
-/* Wrap whole page */
-.category-page-wrapper {
-  background: var(--bg-light);
-  padding-bottom: 70px;
+/* ===========================
+   CategoryPage styles
+   =========================== */
+
+/* ---------------------------
+   Header helper
+   --------------------------- */
+:root {
+  --header-height: 0px;
+  --card-max-width: 320px;
+  --card-gap: 30px;
 }
 
 /* ---------------------------
-   Top Banner
---------------------------- */
+   Page wrapper
+   --------------------------- */
+.category-page-wrapper {
+  background: var(--bg-white, #ffffff);
+  padding-top: 0;
+  padding-bottom: 70px;
+  box-sizing: border-box;
+}
+
+/* ---------------------------
+   Banner with overlay
+   --------------------------- */
 .category-banner {
   width: 100%;
   height: 350px;
-  position: relative;
   overflow: hidden;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
+  position: relative;
 }
 
 .category-banner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.banner-overlay {
+.category-banner::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
 
-.banner-title {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #ffffff;
-  font-weight: bold;
+/* ---------------------------
+   Title Styling (CENTERED)
+   --------------------------- */
+.category-title {
+  display: block;
+  text-align: center;
+  margin: 0 auto 25px auto !important;
+  font-weight: 700 !important;
+  color: #212529;
   text-transform: capitalize;
+  font-size: 3rem !important;
+  line-height: 1.15;
+  max-width: 1200px;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
-/* ---------------------------
-   Right-side images layout
---------------------------- */
-.right-image-wrapper {
-  display: flex;
-  gap: 10px;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: nowrap;
-  margin-top: 20px;
-}
-
-.large-image {
-  width: 60%;
-  height: auto;
-  border-radius: 16px;
-  object-fit: cover;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-}
-
-.small-images-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 40%;
-}
-
-.small-image {
-  width: 100%;
-  height: calc((100% - 20px) / 3); /* Divide vertical space equally */
-  border-radius: 12px;
-  object-fit: cover;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-}
-
-/* ---------------------------
-   Responsive
---------------------------- */
+/* Tablet title size */
 @media (max-width: 992px) {
-  .category-layout {
-    flex-direction: column;
+  .category-title {
+    font-size: 2.5rem !important;
+  }
+  .category-banner {
+    height: 280px;
   }
 
-  .right-image-wrapper {
-    flex-direction: row;
-    gap: 10px;
+}
+
+/* Mobile title size */
+@media (max-width: 560px) {
+  .category-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* ---------------------------
+   Images Grid
+   --------------------------- */
+.category-images-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 12px;
+  padding-right: 12px;
+  align-items: start;
+  box-sizing: border-box;
+}
+
+/* Card wrapper link */
+.category-image-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  flex: 0 1 calc((100% - (var(--card-gap) * 2)) / 3);
+  max-width: var(--card-max-width);
+  box-sizing: border-box;
+}
+
+/* Card itself */
+.category-image-card {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  background: #f8f8f8;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  display: block;
+}
+
+.category-image-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.18);
+}
+
+.category-image-link:focus .category-image-card {
+  outline: 3px solid rgba(33, 37, 41, 0.12);
+  outline-offset: 4px;
+}
+
+/* Image inside card */
+.category-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.category-figcaption {
+  display: none;
+}
+
+/* ---------------------------
+   Responsiveness
+   --------------------------- */
+@media (max-width: 1100px) {
+  :root {
+    --card-max-width: 320px;
+  }
+  .category-images-grid {
+    gap: 18px;
+  }
+  .category-image-link {
+    flex: 0 1 calc((100% - (var(--card-gap) * 2)) / 3);
+  }
+  .category-banner {
+    height: 300px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 900px) {
+  .category-image-link {
+    flex: 0 1 calc((100% - (var(--card-gap) * 2)) / 3);
+    max-width: 300px;
+  }
+  .category-banner {
+    height: 260px;
+    margin-bottom: 28px;
+  }
+}
+
+@media (max-width: 560px) {
+  .category-images-grid {
     justify-content: center;
-    margin-top: 30px;
   }
+  .category-image-link {
+    flex: 0 1 100%;
+    max-width: 100%;
+  }
+  .category-image-card {
+    border-radius: 14px;
+  }
+  .category-banner {
+    height: 220px;
+    margin-bottom: 20px;
+  }
+}
 
-  .large-image {
-    width: 60%;
-  }
-
-  .small-images-wrapper {
-    width: 35%;
-    flex-direction: column;
-  }
+/* ---------------------------
+   Accessibility helper
+   --------------------------- */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
 }

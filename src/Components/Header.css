@@ -1,9 +1,11 @@
 /* ------------------------------------------
-   Transparent Navbar
+   Navbar & Header
 ------------------------------------------- */
 .navbar {
+  position: fixed;
   width: 100%;
   top: 0;
+  right: 0;
   z-index: 999;
   background: transparent;
   box-shadow: none;
@@ -11,25 +13,22 @@
   transition: all 0.4s ease;
 }
 
-/* Only inner container gets background on scroll */
 .navbar-inner-scrolled {
-  background: rgba(15, 74, 15, 0.95); /* dark green */
+  background: rgba(15, 74, 15, 0.95);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-  border-radius: 12px; /* optional rounded ends */
+  border-radius: 12px;
   padding: 8px 20px;
   transition: all 0.4s ease;
 }
 
-/* Header inner layout */
 .header-inner {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
   width: 100%;
 }
 
-/* Bottom line under header-inner */
 .header-inner::after {
   content: "";
   position: absolute;
@@ -41,19 +40,21 @@
   pointer-events: none;
 }
 
-/* Top Navigation Links */
+/* ------------------------------------------
+   Navigation Links
+------------------------------------------- */
 .header-link-animation {
   position: relative;
   color: rgba(255, 255, 255, 0.88) !important;
   text-decoration: none;
   padding-bottom: 4px;
   font-weight: 500 !important;
-  transition: 0.3s ease;
   text-transform: none !important;
   display: inline-block;
+  transition: 0.3s ease;
 }
 
-/* Underline animation under text only */
+/* Underline animation (desktop only) */
 .header-link-animation::after {
   content: "";
   position: absolute;
@@ -67,22 +68,37 @@
   transition: transform 0.3s ease-out;
 }
 
-.header-link-animation:hover::after {
-  transform: scaleX(1);
-}
+/* Desktop hover effect */
+@media (min-width: 1024px) {
+  .header-link-animation:hover::after {
+    transform: scaleX(1);
+  }
+  .header-link-animation:hover {
+    color: white !important;
+    opacity: 1;
+  }
 
-.header-link-animation:hover {
-  color: white !important;
-  opacity: 1;
+  /* Dropdown hover for desktop */
+  .navbar .dropdown:hover > .dropdown-menu {
+    display: block;
+  }
+
+  /* Contact icon rotate on hover */
+  .contact-btn-animated:hover .MuiSvgIcon-root {
+    transform: rotate(-360deg);
+    transition: transform 0.8s ease;
+  }
 }
 
 /* Dropdown menu */
-.dropdown-menu {
+.navbar .dropdown-menu {
   background: white !important;
   border: none;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  display: none;
 }
 
+/* Dropdown items */
 .dropdown-item {
   color: black !important;
   padding: 10px 18px;
@@ -94,15 +110,165 @@
   background: #f0f0f0 !important;
 }
 
-/* Contact button animation (only plus icon rotates) */
-.contact-btn-animated:hover .MuiSvgIcon-root {
-  transform: rotate(-360deg);
-  transition: transform 0.8s ease;
+/* Contact button */
+.contact-btn-animated {
+  color: white !important;
+  border: 1.75px solid white !important;
+  font-weight: 500 !important;
+  border-radius: 20px !important;
+  text-transform: none;
+  margin-left: 1.75rem !important;
+  background: transparent;
 }
 
-/* Mobile Nav Links */
-.nav-link-custom {
-  color: rgba(255, 255, 255, 0.88) !important;
-  font-weight: 400 !important;
-  text-transform: none !important;
+/* ------------------------------------------
+   Tablet adjustments (iPad Mini/Pro 600px–1023px)
+------------------------------------------- */
+@media (min-width: 600px) and (max-width: 1023px) {
+  /* Remove hover animations for tablet */
+  .header-link-animation,
+  .header-link-animation::after {
+    transition: none !important;
+    font-size: 0.9rem !important;
+  }
+  .header-link-animation::after {
+    transform: none !important;
+    opacity: 0;
+  }
+  .logo {
+    transform: scale(0.75);
+  }
+
+  /* Dropdown click only for tablet */
+  .navbar .dropdown:hover > .dropdown-menu {
+    display: none !important;
+  }
+  .navbar .dropdown.show > .dropdown-menu {
+    display: block !important;
+  }
+  /* Disable contact icon rotation on tablet */
+  .contact-btn-animated:hover .MuiSvgIcon-root {
+    transform: none !important;
+  }
+  .contact-btn-animated {
+    font-size: 0.8rem !important;
+  }
+  .contact-overlay {
+    display: flex !important;
+    align-items: center !important; /* vertical center */
+    justify-content: center !important; /* horizontal center */
+    height: 100vh; /* full viewport height */
+    padding: 0 24px; /* optional horizontal padding */
+  }
+
+  .contact-overlay .overlay-window {
+    margin-bottom: 20rem; /* remove default margin */
+    position: relative; /* keep relative for close button */
+    display: block; /* block to avoid flex affecting content */
+  }
+
+  /* Keep content inside the box same as desktop */
+  .contact-card-inner {
+    text-align: left; /* content aligned left */
+    margin: 0 auto 2px; /* margin auto horizontally to stay centered */
+  }
+}
+
+/* ------------------------------------------
+   Contact Overlay (visual only)
+------------------------------------------- */
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  background: rgba(191, 191, 191, 1);
+  transition: opacity 240ms ease, visibility 0s linear 240ms;
+  z-index: 2000;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.contact-overlay.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.contact-overlay .overlay-window {
+  width: min(820px, 92%);
+  max-width: 820px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+  padding: 20px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.overlay-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #333;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Contact content */
+.contact-card-inner {
+  max-width: 760px;
+  margin: 8px auto 2px;
+  color: #111;
+  font-family: inherit;
+}
+
+.contact-card-title {
+  margin: 4px 0 14px;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #0b0b0b;
+}
+
+.contact-lines {
+  background: #fff;
+  padding: 8px 0 4px;
+}
+
+.contact-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-size: 0.96rem;
+  color: #222;
+  margin-bottom: 6px;
+}
+
+.contact-row > strong {
+  min-width: 86px;
+  color: #333;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.contact-details {
+  color: #222;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.contact-details > div + div {
+  margin-top: 4px;
 }

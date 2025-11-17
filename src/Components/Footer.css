@@ -1,6 +1,4 @@
-/* Footer.css - replace the whole file with this */
-
-/* ---------- MAIN WRAPPER (matches className in Footer.js) ---------- */
+/* ---------- MAIN WRAPPER ---------- */
 .site-footer {
   background-color: var(--pokrovske-green, #0f4a0f) !important;
   color: #ffffff !important;
@@ -18,25 +16,22 @@
 }
 
 .footer-company {
-    margin-left: 2.75rem !important;
-    line-height: 0 !important;
-    
-}
-.footer-logo {
-  width: 13rem; /* increased size */
-  height: auto;
-  margin-bottom: 12px;
-  display: block;
+  margin-left: 2.4rem !important;
+  line-height: 0 !important;
 }
 
-/* company text under logo — matches class used in Footer.js */
+.footer-logo {
+  width: 12rem; /* desktop logo size */
+  height: auto;
+  display: block;
+}
 
 /* ---------- HEADINGS ---------- */
 .footer-heading {
   color: #ffffff;
   margin-bottom: 14px !important;
   font-weight: 700 !important;
-  font-size: 1.45rem !important; /* larger heading */
+  font-size: 1.45rem !important; /* desktop heading */
   letter-spacing: 0.4px;
 }
 
@@ -71,10 +66,9 @@
   font-size: 0.95rem;
   transition: all 0.22s ease;
   position: relative;
-  padding-left: 0; /* keep no chevron by default */
+  padding-left: 0;
 }
 
-/* Hover and underline reveal */
 .footer-link:hover {
   opacity: 1;
   transform: translateX(4px);
@@ -90,6 +84,7 @@
   background-color: #fff;
   transition: width 0.22s ease;
 }
+
 .footer-link:hover::after {
   width: 100%;
 }
@@ -109,6 +104,7 @@
   opacity: 0.95;
   text-decoration: none;
 }
+
 .footer-email .footer-link:hover,
 .footer-email a:hover {
   text-decoration: underline;
@@ -116,7 +112,6 @@
 }
 
 /* ---------- UTILITY / RESET ---------- */
-/* hide default HRs or bootstrap borders that might show up */
 .site-footer hr,
 .site-footer .border-top,
 .site-footer .border-bottom,
@@ -124,15 +119,59 @@ footer hr {
   display: none !important;
 }
 
-/* responsive tweaks */
-@media (max-width: 991px) {
-  .footer-logo {
-    width: 72px;
+/* ---------- TABLET STYLING (600px to 1023px) ---------- */
+@media (max-width: 1023px) {
+  /* Wrapper padding */
+  .site-footer {
+    padding: 15px 10px;
   }
+
+  /* Logo size */
+  .footer-logo {
+    width: 8rem; /* smaller logo for tablet */
+  }
+
+  .footer-list-item {
+    display: flex; /* make li flex */
+    align-items: center; /* vertically center */
+    gap: 3px; /* spacing between arrow and text */
+    margin-bottom: 6px;
+  }
+
+  /* Heading size */
   .footer-heading {
     font-size: 1.15rem !important;
   }
-  .site-footer {
-    padding: 36px 0;
+
+  /* Company text spacing */
+  .footer-company {
+    margin-left: 0.76rem !important;
+    line-height: 1 !important;
+    font-weight: 100 !important;
+  }
+
+  .footer-link {
+    white-space: nowrap; /* keeps text in a single line */
+    font-size: 0.85rem;
+  }
+
+  .footer-contact {
+    font-size: 0.75rem;
+    line-height: 1.5rem !important;
+  }
+
+  /* Keep all columns in one row */
+  .footer-brand-col,
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 0 !important;
+  }
+
+  /* Reduce arrow icon size */
+  .footer-arrow svg {
+    width: 8px;
+    height: 8px;
   }
 }

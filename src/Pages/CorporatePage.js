@@ -24,20 +24,22 @@ const CorporatePage = () => {
       </Box>
 
       <Container>
-        <Row className="corporate-layout">
+        <Row className="corporate-layout gx-0">
           {/* LEFT CONTENT */}
-          <Col lg={7} md={12} className="corporate-text-col">
-            <Typography variant="h3" className="corporate-title">
-              {title}
-            </Typography>
+          <Col lg={7} md={7} sm={12} className="corporate-text-col">
+            <div className="corporate-text-wrapper">
+              <Typography variant="h3" className="corporate-title">
+                {title}
+              </Typography>
 
-            <Typography variant="body1" className="corporate-text">
-              {content}
-            </Typography>
+              <Typography variant="body1" className="corporate-text">
+                {content}
+              </Typography>
+            </div>
           </Col>
 
           {/* RIGHT IMAGE — FIXED SIZE SQUARE */}
-          <Col lg={5} md={12} className="corporate-image-col">
+          <Col lg={5} md={5} sm={12} className="corporate-image-col">
             <div className="corporate-side-image-wrapper">
               <img src={image} alt={title} />
             </div>

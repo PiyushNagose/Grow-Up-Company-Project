@@ -1,76 +1,69 @@
 import React, { useMemo } from "react";
-import { useParams } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
+import { useParams, Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
 import { Typography, Box } from "@mui/material";
 import { getProductsByType } from "../data";
-import CategoryCard from "../Components/CategoryCard";
-import "./CategoryPage.css"; // New CSS file for layout
+import "./CategoryPage.css";
 
 const CategoryPage = () => {
   const { type } = useParams();
   const products = useMemo(() => getProductsByType(type), [type]);
-  const pageTitle = type.charAt(0).toUpperCase() + type.slice(1);
 
-  if (products.length === 0) {
-    return (
-      <Container className="py-5 text-center">
-        <Typography variant="h4" color="error" gutterBottom>
-          No products found in the {pageTitle} category.
-        </Typography>
-      </Container>
-    );
-  }
-
-  // Example: Take first 4 images for the right-side banner layout
-  const rightImages = products.slice(0, 4);
+  const pageTitle =
+    type && typeof type === "string"
+      ? type.charAt(0).toUpperCase() + type.slice(1)
+      : "Category";
 
   return (
     <Box className="category-page-wrapper">
-      {/* 🔹 TOP BANNER */}
-      <Box className="category-banner">
+      {/* Banner */}
+      <Box
+        className="category-banner"
+        role="img"
+        aria-label={`${pageTitle} banner`}
+      >
         <img src="/images/Banner.jpg" alt={`${pageTitle} Banner`} />
-        <div className="banner-overlay" />
-        <Typography variant="h2" className="banner-title">
-          {pageTitle}
-        </Typography>
       </Box>
 
+      {/* Title */}
       <Container>
-        <Row className="category-layout">
-          {/* LEFT: Product Grid */}
-          <Col lg={7} md={12} className="category-products-col">
-            <Row className="g-4">
-              {products.map((product) => (
-                <Col xs={12} sm={6} md={4} key={product.slug}>
-                  <CategoryCard product={product} />
-                </Col>
-              ))}
-            </Row>
-          </Col>
+        <Typography variant="h3" component="h1" className="category-title">
+          {pageTitle}
+        </Typography>
+      </Container>
 
-          {/* RIGHT: Image Layout */}
-          <Col lg={5} md={12} className="category-images-col">
-            <div className="right-image-wrapper">
-              {rightImages.length > 0 && (
-                <img
-                  src={rightImages[0].images.grid}
-                  alt={rightImages[0].name}
-                  className="large-image"
-                />
-              )}
-              <div className="small-images-wrapper">
-                {rightImages.slice(1).map((img) => (
+      {/* Images Grid */}
+      <Container className="py-4">
+        {products.length === 0 ? (
+          <Typography variant="body1" align="center">
+            No products found in the {pageTitle} category.
+          </Typography>
+        ) : (
+          <section
+            className="category-images-grid"
+            role="list"
+            aria-label={`${pageTitle} images`}
+          >
+            {products.map((p) => (
+              <Link
+                to={`/products/${p.slug}`}
+                key={p.slug}
+                className="category-image-link"
+                role="listitem"
+                aria-label={p.name}
+              >
+                <div className="category-image-card">
                   <img
-                    key={img.slug}
-                    src={img.images.grid}
-                    alt={img.name}
-                    className="small-image"
+                    src={p.images.grid}
+                    alt={p.name}
+                    className="category-image"
+                    loading="lazy"
                   />
-                ))}
-              </div>
-            </div>
-          </Col>
-        </Row>
+                </div>
+              </Link>
+            ))}
+          </section>
+        )}
       </Container>
     </Box>
   );

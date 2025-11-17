@@ -11,7 +11,7 @@
   width: 100%;
   height: 350px;
   overflow: hidden;
-  margin-bottom: 70px; /* improved vertical spacing */
+  margin-bottom: 70px;
   position: relative;
 }
 
@@ -29,8 +29,19 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.35); /* adjust intensity as needed */
+  background: rgba(0, 0, 0, 0.35);
   pointer-events: none;
+}
+.corporate-text-wrapper {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* Ensure Typography doesn’t add extra margin */
+.corporate-title,
+.corporate-text {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
 }
 
 /* ---------------------------
@@ -39,8 +50,7 @@
 .corporate-title {
   font-weight: 700 !important;
   color: #212529;
-  margin-bottom: 30px !important;
-  text-transform: capitalize;
+  margin-bottom: 25px !important;
   text-align: left !important;
 }
 
@@ -49,24 +59,22 @@
    --------------------------- */
 .corporate-text {
   font-size: 1.15rem !important;
-  line-height: 1.9 !important; /* improved readability */
+  line-height: 1.9 !important;
   color: var(--text-dark);
   white-space: pre-line;
   margin-bottom: 20px;
-  text-align: left;
+  text-align: left !important;
 }
 
 /* ---------------------------
-   Right-Side Image (now small & equal size)
+   Right-Side Image (fixed size)
    --------------------------- */
 .corporate-side-image-wrapper {
-  width: 260px; /* fixed width */
-  height: 260px; /* fixed height → perfect square */
-  border-radius: 16px; /* more attractive roundness */
+  width: 260px;
+  height: 260px;
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .corporate-side-image-wrapper img {
@@ -79,45 +87,82 @@
    Layout Spacing
    --------------------------- */
 .corporate-layout {
-  align-items: flex-start; /* normal bootstrap behavior */
+  align-items: flex-start;
+  gap: 0 !important;
 }
 
-@media (max-width: 992px) {
-  .corporate-layout {
-    flex-direction: column; /* image comes below ONLY on mobile */
-  }
+/* Remove padding for left column to align text with title */
+.corporate-text-col {
+  padding-left: 0 !important;
 }
 
+/* Right image column */
 .corporate-image-col {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   margin-top: 10px;
 }
 
-/* ---------------------------
-   Mobile Responsive
-   --------------------------- */
+/* --------------------------- */
 @media (max-width: 992px) {
+  .corporate-layout {
+    flex-wrap: nowrap; /* prevent wrapping */
+    align-items: center; /* vertically center image relative to text */
+    gap: 20px;
+  }
+  .corporate-banner {
+    height: 280px;
+  }
+
+  .corporate-text-col {
+    flex: 0 0 65%; /* adjust width as needed */
+    max-width: 65%;
+  }
+  .corporate-title {
+    font-size: 2.5rem !important;
+  }
+
+  .corporate-image-col {
+    flex: 0 0 30%; /* adjust width as needed */
+    max-width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; /* vertical center */
+  }
+
+  .corporate-side-image-wrapper {
+    width: 180px;
+    height: 180px;
+  }
+}
+/* ---------------------------
+   Mobile Styling (<768px)
+   --------------------------- */
+@media (max-width: 767px) {
+  .corporate-layout {
+    flex-direction: column;
+    gap: 30px;
+  }
+
   .corporate-banner {
     height: 240px;
     margin-bottom: 50px;
   }
 
-  .corporate-title {
+  .corporate-title,
+  .corporate-text {
     text-align: center;
   }
 
   .corporate-side-image-wrapper {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     border-radius: 14px;
-  }
-
-  .corporate-layout {
-    gap: 30px;
+    margin: 0 auto;
   }
 
   .corporate-image-col {
-    margin-top: 30px;
+    justify-content: center;
+    margin-top: 20px;
   }
 }

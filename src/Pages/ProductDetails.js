@@ -50,17 +50,17 @@ const ProductDetail = () => {
   };
 
   const ProductInfo = () => (
-    <Col lg={5} md={12} className="mb-5 mb-lg-0">
+    <Col lg={5} md={12} className="mb-3 mb-lg-0">
       <Typography
         variant="h3"
         component="h1"
         gutterBottom
         sx={{ fontWeight: "bold" }}
       >
-        {product.name.toUpperCase()}
+        {product.name}
       </Typography>
-      <Box sx={{ mt: 3, mb: 4 }}>
-        <Typography variant="h5" sx={{ mb: 2, fontWeight: "medium" }}>
+      <Box sx={{ mt: 2, mb: 2 }}>
+        <Typography variant="h5" sx={{ mb: 1, fontWeight: "medium" }}>
           Product Information
         </Typography>
         <ul style={{ listStyleType: "none", padding: 0 }}>
@@ -91,13 +91,15 @@ const ProductDetail = () => {
       </Box>
 
       <Container>
-        <Row className="product-detail-layout align-items-center">
-          <ProductInfo />
+        <Row className="product-detail-layout gx-0">
+          {/* Text Column */}
+          <Col lg={7} md={6} sm={12} className="product-info-col">
+            <ProductInfo />
+          </Col>
 
-          {/* Right Side: Main Image + Vertical Thumbnails */}
-          <Col lg={7} md={12}>
+          {/* Image Column */}
+          <Col lg={5} md={5} sm={12} className="product-image-col">
             <Box className="product-image-wrapper">
-              {/* Main Image */}
               <Box className="main-image-box">
                 <img
                   src={mainImage}
@@ -105,8 +107,6 @@ const ProductDetail = () => {
                   className="main-product-image"
                 />
               </Box>
-
-              {/* Thumbnails Column */}
               <Box className="thumbnail-column">
                 {thumbnails.map((thumb, idx) => (
                   <img

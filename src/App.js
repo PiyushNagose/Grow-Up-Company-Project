@@ -1,52 +1,21 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-// Components
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 
-// Pages
 import HomePage from "./Pages/HomePage";
 import ProductDetail from "./Pages/ProductDetails";
 import CategoryPage from "./Pages/CategoryPage";
 import CorporatePage from "./Pages/CorporatePage";
-import ContactPage from "./Pages/ContactPage";
 
-function AppWrapper() {
-  const location = useLocation();
-
-  // Hide header/footer only on Contact and 404 pages
-  const hideHeaderFooter =
-    location.pathname === "/contact" || location.pathname === "/404";
-
+// Layout with Header + Footer
+function MainLayout({ children }) {
   return (
     <>
-      {!hideHeaderFooter && <Header />}
-
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products/:slug" element={<ProductDetail />} />
-          <Route path="/products/:type" element={<CategoryPage />} />
-          <Route path="/corporate/:slug" element={<CorporatePage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          {/* Fallback 404 text */}
-          <Route
-            path="*"
-            element={
-              <h1 style={{ textAlign: "center", padding: "100px 0" }}>
-                404 Page Not Found
-              </h1>
-            }
-          />
-        </Routes>
-      </main>
-
-      {!hideHeaderFooter && <Footer />}
+      <Header />
+      <main>{children}</main>
+      <Footer />
     </>
   );
 }
@@ -54,7 +23,51 @@ function AppWrapper() {
 function App() {
   return (
     <Router>
-      <AppWrapper />
+      <Routes>
+        {/* Pages with Header + Footer */}
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              <HomePage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/products/:slug"
+          element={
+            <MainLayout>
+              <ProductDetail />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/category/:type"
+          element={
+            <MainLayout>
+              <CategoryPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/corporate/:slug"
+          element={
+            <MainLayout>
+              <CorporatePage />
+            </MainLayout>
+          }
+        />
+
+        {/* 404 Page WITHOUT Header & Footer */}
+        <Route
+          path="*"
+          element={
+            <h1 style={{ textAlign: "center", padding: "100px 0" }}>
+              404 Page Not Found
+            </h1>
+          }
+        />
+      </Routes>
     </Router>
   );
 }

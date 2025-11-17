@@ -1,6 +1,6 @@
 export const PRODUCTS = [
   {
-    name: "pomegranate",
+    name: "Pomegranate",
     slug: "pomegranate",
     type: "fruit",
     details: {
@@ -24,7 +24,7 @@ export const PRODUCTS = [
     },
   },
   {
-    name: "cucumber",
+    name: "Cucumber",
     slug: "cucumber",
     type: "vegetable",
     details: {
@@ -45,7 +45,7 @@ export const PRODUCTS = [
     },
   },
   {
-    name: "tomatoe",
+    name: "Tomatoe",
     slug: "tomatoe",
     type: "vegetable",
     details: {
@@ -66,7 +66,7 @@ export const PRODUCTS = [
     },
   },
   {
-    name: "lemon",
+    name: "Lemon",
     slug: "lemon",
     type: "fruit",
     details: {
@@ -87,7 +87,7 @@ export const PRODUCTS = [
     },
   },
   {
-    name: "squash",
+    name: "Squash",
     slug: "squash",
     type: "vegetable",
     details: {
@@ -108,7 +108,7 @@ export const PRODUCTS = [
     },
   },
   {
-    name: "mandarin",
+    name: "Mandarin",
     slug: "mandarin",
     type: "fruit",
     details: {
@@ -129,7 +129,7 @@ export const PRODUCTS = [
     },
   },
   {
-    name: "zucchini",
+    name: "Zucchini",
     slug: "zucchini",
     type: "vegetable",
     details: {
@@ -150,7 +150,7 @@ export const PRODUCTS = [
     },
   },
   {
-    name: "pepper",
+    name: "Pepper",
     slug: "pepper",
     type: "vegetable",
     details: {
@@ -200,7 +200,7 @@ export const CORPORATE_PAGES = {
     image: "/images/Mission-Vision.jpg",
     content: `Our mission is to grow a sustainable future through responsible farming and strong partnerships. We aim to be a leading global supplier known for quality, transparency, and respect for both people and the planet. Our vision is a world where everyone has access to the highest quality fresh produce grown with integrity and care. We strive to innovate farming technologies to minimize our environmental footprint while maximizing nutritional value.`,
   },
-  "sustainability": {
+  sustainability: {
     title: "Sustainability",
     Homeimage: "/images/Life.jpg",
     image: "/images/Life.jpg",

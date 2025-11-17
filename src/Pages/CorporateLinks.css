@@ -1,59 +1,63 @@
-/* Main card container */
-.corporate-card {
+/* ------------------------------------------
+   Main card container
+------------------------------------------- */
+.home-corporate-card {
   width: 100%;
-  max-width: 360px;
+  max-width: 320px;
   border: none;
   border-radius: 10px;
   background: #fff;
   padding: 18px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   transition: 0.3s ease;
   cursor: pointer;
   text-decoration: none;
   display: block;
 }
 
-/* Hover effect */
-.corporate-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+/* Hover effect (desktop only) */
+@media (min-width: 1024px) {
+  .home-corporate-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  }
+
+  /* Slight zoom effect on image */
+  .home-corporate-card:hover .home-corporate-image {
+    transform: scale(1.07);
+  }
 }
 
 /* Image container */
-.corporate-image-wrapper {
+.home-corporate-image-wrapper {
   width: 100%;
-  height: 170px;
+  height: 140px;
   border-radius: 8px;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease;
 }
 
 /* Image styling */
-.corporate-image {
+.home-corporate-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: 0.5s ease;
 }
 
-/* Slight zoom effect */
-.corporate-card:hover .corporate-image {
-  transform: scale(1.07);
-}
-
 /* Title styling */
-.corporate-title {
-  font-size: 1.45rem;
-  font-weight: 700;
+.home-corporate-title {
+  font-size: 1.4rem !important;
+  font-weight: 600 !important;
   color: #1a1a1a;
-  margin-top: 0.5rem !important;
   text-align: center !important;
   letter-spacing: 0.5px;
 }
 
 /* Stronger green bottom accent */
-.corporate-bottom-accent {
+.home-corporate-bottom-accent {
   width: 100%;
   height: 7px;
   margin-top: 28px;
@@ -64,4 +68,43 @@
     rgba(0, 160, 0, 1),
     rgba(0, 0, 0, 0)
   );
+}
+
+/* ------------------------------------------
+   Tablet adjustments (600px–1023px)
+------------------------------------------- */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .home-corporate-card {
+    max-width: 280px; /* Slightly smaller cards */
+    padding: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .home-corporate-image-wrapper {
+    height: 110px; /* Reduce image height */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  }
+
+  .home-corporate-title {
+    font-size: 1.1rem !important; /* Smaller title */
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Remove hover zoom and shadow for tablet */
+  .home-corporate-card:hover .home-corporate-image {
+    transform: none !important;
+  }
+
+  .home-corporate-card:hover {
+    transform: none !important;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Shadow increase on tap of white area only */
+  .home-corporate-card:active {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  }
 }

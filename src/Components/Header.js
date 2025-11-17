@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Container, Navbar, NavDropdown, Nav } from "react-bootstrap";
-import { Box, Button, Typography } from "@mui/material";
+import { Navbar, NavDropdown, Container, Button } from "react-bootstrap";
+import { Box } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import "./Header.css";
 
-// Navigation arrays
 const corporateLinks = [
   { name: "Quality policy", slug: "quality-policy" },
   { name: "Vision mission", slug: "vision-mission" },
@@ -27,128 +26,82 @@ const veggieLinks = [
   { name: "Squash", slug: "squash" },
 ];
 
-// NavItem component
-const NavItem = ({ title, links, baseRoute }) => (
-  <NavDropdown
-    title={title}
-    id={`nav-dropdown-${baseRoute}`}
-    className="nav-item-custom header-link-animation"
-  >
-    {links.map((link, index) => (
-      <NavDropdown.Item
-        key={index}
-        as={Link}
-        to={`/${baseRoute}/${link.slug}`}
-        className="dropdown-item-custom"
-      >
-        {link.name}
-      </NavDropdown.Item>
-    ))}
-  </NavDropdown>
-);
+const NavItem = ({ title, links, baseRoute }) => {
+  const [open, setOpen] = useState(false);
+
+  const toggleDropdown = () => setOpen(!open);
+
+  return (
+    <NavDropdown
+      title={title}
+      id={`nav-dropdown-${baseRoute}`}
+      show={open}
+      onClick={toggleDropdown}
+      className="nav-item-custom header-link-animation"
+    >
+      {links.map((link, idx) => (
+        <NavDropdown.Item key={idx} as={Link} to={`/${baseRoute}/${link.slug}`}>
+          {link.name}
+        </NavDropdown.Item>
+      ))}
+    </NavDropdown>
+  );
+};
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
-  // Handle scroll to add background to inner container
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const desktopNav = (
-    <Box
-      sx={{
-        display: { xs: "none", lg: "flex" },
-        alignItems: "center",
-        gap: 8,
-        fontWeight: "0.5rem",
-      }}
-    >
-      <Link to="/" className="header-link-animation">
-        Home
-      </Link>
+  const openContact = (e) => {
+    e?.preventDefault();
+    setContactOpen(true);
+    document.body.style.overflow = "hidden";
+  };
 
-      <NavItem title="Corporate" links={corporateLinks} baseRoute="corporate" />
-      <NavItem title="Fruits" links={fruitLinks} baseRoute="products" />
-      <NavItem title="Vegetables" links={veggieLinks} baseRoute="products" />
-
-      <Button
-        component={Link}
-        to="/contact"
-        variant="outlined"
-        className="contact-btn-animated"
-        sx={{
-          color: "white",
-          borderColor: "white",
-          fontWeight: "bold",
-          borderRadius: "20px",
-          textTransform: "none",
-          ml: 2,
-          "&:hover": {
-            backgroundColor: "rgba(255,255,255,0.1)",
-            borderColor: "transparent", // hide border on hover
-          },
-        }}
-      >
-        Contact
-        <AddCircleOutlineIcon sx={{ ml: 1, fontSize: "1.1rem" }} />
-      </Button>
-    </Box>
-  );
+  const closeContact = () => {
+    setContactOpen(false);
+    document.body.style.overflow = "";
+  };
 
   return (
-    <Navbar expand="lg" variant="dark" fixed="top" className="navbar">
-      <Container>
-        <div
-          className={`header-inner ${scrolled ? "navbar-inner-scrolled" : ""}`}
-        >
-          {/* Logo + Brand */}
-          <Navbar.Brand
-            as={Link}
-            to="/"
-            style={{ display: "flex", alignItems: "center" }}
+    <>
+      <Navbar variant="dark" fixed="top" className={`navbar`}>
+        <Container>
+          <div
+            className={`header-inner ${
+              scrolled ? "navbar-inner-scrolled" : ""
+            }`}
           >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Navbar.Brand
+              as={Link}
+              to="/"
+              style={{ display: "flex", alignItems: "center" }}
+            >
               <img
                 src="/images/Logo.svg"
-                alt="Pokrovske Logo"
-                style={{
-                  width: "4.5rem",
-                  height: "4.5rem",
-                  marginLeft: "0.3rem",
-                }}
+                alt="Logo"
+                style={{ width: "4.5rem", height: "4.5rem" }}
+                className="logo"
               />
-              <Typography
-                variant="h6"
-                component="span"
-                sx={{
-                  fontWeight: "bold",
-                  color: "white",
-                  ml: 1,
-                  fontSize: { xs: "1rem", md: "1.25rem" },
-                }}
-              />
-            </Box>
-          </Navbar.Brand>
+            </Navbar.Brand>
 
-          {/* Toggle + Collapse */}
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse
-            id="basic-navbar-nav"
-            className="justify-content-end"
-          >
-            {desktopNav}
-
-            {/* Mobile Menu */}
-            <Nav className="d-block d-lg-none">
-              <Nav.Link as={Link} to="/" className="nav-link-custom">
+            {/* Direct navigation links for desktop + tablet */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: { xs: 4, sm: 4, md: 12 },
+              }}
+            >
+              <Link to="/" className="header-link-animation">
                 Home
-              </Nav.Link>
-
+              </Link>
               <NavItem
                 title="Corporate"
                 links={corporateLinks}
@@ -161,14 +114,50 @@ const Header = () => {
                 baseRoute="products"
               />
 
-              <Nav.Link as={Link} to="/contact" className="nav-link-custom">
+              <Button
+                onClick={openContact}
+                variant="outlined"
+                className="contact-btn-animated"
+              >
                 Contact
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
+                <AddCircleOutlineIcon sx={{ ml: 1, fontSize: "1.1rem" }} />
+              </Button>
+            </Box>
+          </div>
+        </Container>
+      </Navbar>
+
+      {/* Contact overlay */}
+      <div className={`contact-overlay${contactOpen ? " show" : ""}`}>
+        <div className="overlay-window contact-card">
+          <button className="overlay-close" onClick={closeContact}>
+            ×
+          </button>
+          <div className="contact-card-inner">
+            <h2 className="contact-card-title">Contact information</h2>
+            <div className="contact-lines">
+              <div className="contact-row">
+                <strong>Phone:</strong>
+                <div className="contact-details">
+                  <div>+90 534 29 29 764</div>
+                  <div>+90 545 78 93 035</div>
+                </div>
+              </div>
+              <div className="contact-row">
+                <strong>Email:</strong>
+                <div className="contact-details">freshveginf0@gmail.com</div>
+              </div>
+              <div className="contact-row">
+                <strong>Address:</strong>
+                <div className="contact-details">
+                  Elmalı Mah. 21 Sk. Serbest Apt. No:1, İç Kapı No:12 Muratpaşa
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </Container>
-    </Navbar>
+      </div>
+    </>
   );
 };
 
