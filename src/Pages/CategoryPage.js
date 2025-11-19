@@ -61,7 +61,6 @@ const CategoryPage = () => {
 
   return (
     <Box className="category-page-wrapper">
-      {/* ... rest of the JSX ... */}
       {isMobile ? (
         <HomeHero />
       ) : (
@@ -125,7 +124,7 @@ const CategoryPage = () => {
                       backgroundImage: `url(${product.images.grid})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
-                      transition: "transform 2s ease, box-shadow 0.5s ease",
+                      transition: "transform 1.75s ease, box-shadow 0.5s ease",
                     }}
                   />
 
@@ -141,8 +140,8 @@ const CategoryPage = () => {
                     className="product-arrow-icon"
                     sx={{
                       position: "absolute",
-                      bottom: { xs: 35, lg: 12, sm: 30 },
-                      left: { xs: 35, lg: 12, sm: 30 },
+                      bottom: { xs: 43, lg: 12, sm: 35 },
+                      left: { xs: 43, lg: 12, sm: 35 },
                       width: { xs: 50, lg: 45, sm: 40 },
                       height: { xs: 50, lg: 45, sm: 40 },
                       borderRadius: "50%",

@@ -146,7 +146,7 @@ const ProductMosaic = () => {
                     backgroundImage: `url(${product.images.grid})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    transition: "transform 2s ease, box-shadow 0.5s ease",
+                    transition: "transform 1.75s ease, box-shadow 0.5s ease",
                   }}
                 />
                 {/* The Arrow Icon */}

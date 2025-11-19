@@ -114,16 +114,17 @@
    4. Dropdown Menu & Items (Desktop/Tablet)
 ------------------------------------------- */
 
-/* 1. REMOVE the default React-Bootstrap arrow */
 .navbar .nav-item-custom.no-arrow .dropdown-toggle::after {
   display: none !important;
 }
 
-/* 2. Style the custom MUI Chevron Icon (No Animation) */
 .navbar .static-chevron {
   transform: none;
   transition: none;
   vertical-align: middle;
+}
+.navbar .dropdown-menu .dropdown-item .MuiSvgIcon-root {
+  color: #333 !important;
 }
 
 /* Dropdown menu container */
