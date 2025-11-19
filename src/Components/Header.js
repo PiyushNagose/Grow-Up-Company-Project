@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Navbar, NavDropdown, Container, Button } from "react-bootstrap";
-import { Box } from "@mui/material";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Navbar, NavDropdown, Container, Button, Nav } from "react-bootstrap";
+import { Box, useMediaQuery } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import "./Header.css";
 
+// --- Link Definitions ---
 const corporateLinks = [
   { name: "Quality policy", slug: "quality-policy" },
   { name: "Vision mission", slug: "vision-mission" },
@@ -26,92 +31,226 @@ const veggieLinks = [
   { name: "Squash", slug: "squash" },
 ];
 
-const NavItem = ({ title, links, baseRoute }) => {
-  const [open, setOpen] = useState(false);
+// ------------------------------------------
+// NavItem Component
+// ------------------------------------------
+const NavItem = ({
+  title,
+  links,
+  baseRoute,
+  activeDropdown,
+  setActiveDropdown,
+  handleLinkClick,
+  isMobileView,
+  navigate,
+}) => {
+  const open = activeDropdown === baseRoute;
+  const dropdownRef = useRef(null);
 
-  const toggleDropdown = () => setOpen(!open);
+  const handleInternalLinkClick = (e, slug) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // 1. Close both menu layers
+    setActiveDropdown(null);
+    if (handleLinkClick) handleLinkClick();
+
+    // 2. Force programmatic navigation
+    navigate(`/${baseRoute}/${slug}`);
+  };
+
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
+    if (isMobileView) {
+      setActiveDropdown(open ? null : baseRoute);
+    }
+  };
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        isMobileView &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        if (open) {
+          setActiveDropdown(null);
+        }
+      }
+    }
+    if (isMobileView) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open, setActiveDropdown, isMobileView]);
+
+  const CustomToggleTitle = (
+    <>
+      {title}
+      <ExpandMoreIcon
+        className="static-chevron"
+        sx={{ ml: 0.5, fontSize: "1.2rem" }}
+      />
+    </>
+  );
 
   return (
-    <NavDropdown
-      title={title}
-      id={`nav-dropdown-${baseRoute}`}
-      show={open}
-      onClick={toggleDropdown}
-      className="nav-item-custom header-link-animation"
-    >
-      {links.map((link, idx) => (
-        <NavDropdown.Item key={idx} as={Link} to={`/${baseRoute}/${link.slug}`}>
-          {link.name}
-        </NavDropdown.Item>
-      ))}
-    </NavDropdown>
+    <div ref={dropdownRef}>
+      <NavDropdown
+        title={CustomToggleTitle}
+        id={`nav-dropdown-${baseRoute}`}
+        show={isMobileView ? open : undefined}
+        onClick={isMobileView ? toggleDropdown : undefined}
+        className="nav-item-custom header-link-animation no-arrow"
+      >
+        {links.map((link, idx) => (
+          // Using a simple div container for the link (Mobile fix)
+          <div key={idx} className="dropdown-item" role="menuitem">
+            <Link
+              to={`/${baseRoute}/${link.slug}`}
+              onClick={(e) => handleInternalLinkClick(e, link.slug)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+                width: "100%",
+              }}
+            >
+              <ChevronRightIcon
+                sx={{
+                  fontSize: "1.2rem",
+                  mr: 1.5,
+                  color: "rgba(255, 255, 255, 0.8)",
+                }}
+              />
+              <span style={{ flexGrow: 1 }}>{link.name}</span>
+            </Link>
+          </div>
+        ))}
+      </NavDropdown>
+    </div>
   );
 };
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const isSmallScreen = useMediaQuery("(max-width: 575px)");
+  const navigate = useNavigate(); // Initialize navigate hook
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      // Apply 'scrolled' class when scrolled past a small amount (e.g., 20px)
+      setScrolled(window.scrollY > 20);
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setActiveDropdown(null);
+  };
+
+  const handleMobileLinkClick = () => {
+    closeMobileMenu();
+  };
+
   const openContact = (e) => {
     e?.preventDefault();
     setContactOpen(true);
-    document.body.style.overflow = "hidden";
+    closeMobileMenu();
   };
 
   const closeContact = () => {
     setContactOpen(false);
-    document.body.style.overflow = "";
   };
+
+  // Lock body scroll when any overlay is open
+  useEffect(() => {
+    if (mobileMenuOpen || contactOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [mobileMenuOpen, contactOpen]);
 
   return (
     <>
-      <Navbar variant="dark" fixed="top" className={`navbar`}>
+      <Navbar variant="dark" fixed="top" className="navbar">
         <Container>
           <div
             className={`header-inner ${
               scrolled ? "navbar-inner-scrolled" : ""
             }`}
           >
+            {/* Logo */}
             <Navbar.Brand
               as={Link}
               to="/"
-              style={{ display: "flex", alignItems: "center" }}
+              onClick={closeMobileMenu}
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
             >
               <img
                 src="/images/Logo.svg"
                 alt="Logo"
-                style={{ width: "4.5rem", height: "4.5rem" }}
                 className="logo"
+                style={{
+                  // Only apply inline size if mobile menu is open, let CSS handle scroll/desktop size
+                  width: mobileMenuOpen ? "3.5rem" : undefined,
+                  height: mobileMenuOpen ? "3.5rem" : undefined,
+                  transition: "width 0.3s, height 0.3s",
+                }}
               />
             </Navbar.Brand>
 
-            {/* Direct navigation links for desktop + tablet */}
+            {/* 🔥 DESKTOP/TABLET NAVIGATION LINKS (sm and up) */}
             <Box
               sx={{
-                display: "flex",
+                display: { xs: "none", sm: "flex" },
                 alignItems: "center",
-                gap: { xs: 4, sm: 4, md: 12 },
+                gap: { sm: 4, md: 12 },
               }}
             >
               <Link to="/" className="header-link-animation">
                 Home
               </Link>
+
               <NavItem
                 title="Corporate"
                 links={corporateLinks}
                 baseRoute="corporate"
+                activeDropdown={activeDropdown}
+                setActiveDropdown={setActiveDropdown}
+                isMobileView={isSmallScreen}
+                navigate={navigate}
               />
-              <NavItem title="Fruits" links={fruitLinks} baseRoute="products" />
+              <NavItem
+                title="Fruits"
+                links={fruitLinks}
+                baseRoute="fruit-products"
+                activeDropdown={activeDropdown}
+                setActiveDropdown={setActiveDropdown}
+                isMobileView={isSmallScreen}
+                navigate={navigate}
+              />
               <NavItem
                 title="Vegetables"
                 links={veggieLinks}
-                baseRoute="products"
+                baseRoute="vegetable-products"
+                activeDropdown={activeDropdown}
+                setActiveDropdown={setActiveDropdown}
+                isMobileView={isSmallScreen}
+                navigate={navigate}
               />
 
               <Button
@@ -123,11 +262,85 @@ const Header = () => {
                 <AddCircleOutlineIcon sx={{ ml: 1, fontSize: "1.1rem" }} />
               </Button>
             </Box>
+
+            {/* MOBILE TOGGLE BUTTON (xs only) */}
+            <Box sx={{ display: { xs: "block", sm: "none" }, zIndex: 1000 }}>
+              <Button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                variant="text"
+                sx={{
+                  minWidth: 0,
+                  p: 0,
+                  transition: "transform 0.3s ease",
+                }}
+              >
+                {mobileMenuOpen ? (
+                  <CloseIcon sx={{ fontSize: "2rem", color: "white" }} />
+                ) : (
+                  <MenuIcon sx={{ fontSize: "2rem", color: "white" }} />
+                )}
+              </Button>
+            </Box>
           </div>
         </Container>
       </Navbar>
 
-      {/* Contact overlay */}
+      {/* 🔥 MOBILE MENU CONTAINER (The off-canvas overlay) */}
+      <div className={`mobile-menu-overlay ${mobileMenuOpen ? "show" : ""}`}>
+        <Nav className="mobile-nav-links">
+          <Link to="/" className="mobile-link" onClick={handleMobileLinkClick}>
+            Home
+          </Link>
+
+          <NavItem
+            title="Corporate"
+            links={corporateLinks}
+            baseRoute="corporate"
+            activeDropdown={activeDropdown}
+            setActiveDropdown={setActiveDropdown}
+            handleLinkClick={handleMobileLinkClick}
+            isMobileView={true}
+            navigate={navigate}
+          />
+          <NavItem
+            title="Fruits"
+            links={fruitLinks}
+            baseRoute="fruit-products"
+            activeDropdown={activeDropdown}
+            setActiveDropdown={setActiveDropdown}
+            handleLinkClick={handleMobileLinkClick}
+            isMobileView={true}
+            navigate={navigate}
+          />
+          <NavItem
+            title="Vegetables"
+            links={veggieLinks}
+            baseRoute="vegetable-products"
+            activeDropdown={activeDropdown}
+            setActiveDropdown={setActiveDropdown}
+            handleLinkClick={handleMobileLinkClick}
+            isMobileView={true}
+            navigate={navigate}
+          />
+
+          <Button
+            onClick={openContact}
+            variant="contained"
+            sx={{
+              mt: 3,
+              color: "#333",
+              backgroundColor: "white",
+              "&:hover": {
+                backgroundColor: "#eee",
+              },
+            }}
+          >
+            Contact
+          </Button>
+        </Nav>
+      </div>
+
+      {/* Contact overlay (Unchanged) */}
       <div className={`contact-overlay${contactOpen ? " show" : ""}`}>
         <div className="overlay-window contact-card">
           <button className="overlay-close" onClick={closeContact}>

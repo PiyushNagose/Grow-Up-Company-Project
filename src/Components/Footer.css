@@ -1,6 +1,15 @@
-/* ---------- MAIN WRAPPER ---------- */
+:root {
+  --pokrovske-green: #084902;
+  --bg-white: #ffffff;
+}
+
+/* ---------------------------------------------------- */
+/* WRAPPER & BRAND STYLES */
+/* ---------------------------------------------------- */
+
 .site-footer {
-  background-color: var(--pokrovske-green, #0f4a0f) !important;
+  /* *** CHANGE APPLIED HERE (New Background Color) *** */
+  background-color: rgba(15, 74, 15, 0.95);
   color: #ffffff !important;
   padding: 50px 0;
   position: relative;
@@ -8,7 +17,6 @@
   background-image: none !important;
 }
 
-/* ---------- BRAND / LOGO ---------- */
 .footer-brand-col {
   display: flex;
   flex-direction: column;
@@ -18,24 +26,26 @@
 .footer-company {
   margin-left: 2.4rem !important;
   line-height: 0 !important;
+  color: #cf9b36;
 }
 
 .footer-logo {
-  width: 12rem; /* desktop logo size */
+  width: 12rem;
   height: auto;
   display: block;
 }
 
-/* ---------- HEADINGS ---------- */
+/* ---------------------------------------------------- */
+/* HEADINGS, LISTS & LINKS */
+/* ---------------------------------------------------- */
 .footer-heading {
   color: #ffffff;
   margin-bottom: 14px !important;
   font-weight: 700 !important;
-  font-size: 1.45rem !important; /* desktop heading */
+  font-size: 1.45rem !important;
   letter-spacing: 0.4px;
 }
 
-/* ---------- LISTS & LINKS ---------- */
 .footer-list {
   list-style: none;
   padding-left: 0;
@@ -48,15 +58,17 @@
   margin-right: 6px;
   opacity: 0.8;
   transition: transform 0.25s ease;
+  color: inherit;
 }
 
-.footer-link:hover .footer-arrow {
+.footer-list-item:hover .footer-arrow {
   transform: translateX(4px);
   opacity: 1;
 }
 
 .footer-list-item {
   margin-bottom: 8px;
+  position: relative;
 }
 
 .footer-link {
@@ -71,11 +83,11 @@
 
 .footer-link:hover {
   opacity: 1;
-  transform: translateX(4px);
-  text-decoration: underline;
+  text-decoration: none;
   line-height: 0.5rem;
 }
 
+/* Underline animation on hover */
 .footer-link::after {
   content: "";
   display: block;
@@ -89,7 +101,9 @@
   width: 100%;
 }
 
-/* ---------- CONTACTS ---------- */
+/* ---------------------------------------------------- */
+/* CONTACTS (Desktop/Tablet) */
+/* ---------------------------------------------------- */
 .footer-contact {
   color: #ffffff;
   font-size: 0.95rem;
@@ -111,7 +125,9 @@
   opacity: 1;
 }
 
-/* ---------- UTILITY / RESET ---------- */
+/* ---------------------------------------------------- */
+/* UTILITY / RESET */
+/* ---------------------------------------------------- */
 .site-footer hr,
 .site-footer .border-top,
 .site-footer .border-bottom,
@@ -119,31 +135,29 @@ footer hr {
   display: none !important;
 }
 
-/* ---------- TABLET STYLING (600px to 1023px) ---------- */
+/* ---------------------------------------------------- */
+/* TABLET STYLING (600px to 1023px) */
+/* ---------------------------------------------------- */
 @media (max-width: 1023px) {
-  /* Wrapper padding */
   .site-footer {
     padding: 15px 10px;
   }
 
-  /* Logo size */
   .footer-logo {
-    width: 8rem; /* smaller logo for tablet */
+    width: 8rem;
   }
 
   .footer-list-item {
-    display: flex; /* make li flex */
-    align-items: center; /* vertically center */
-    gap: 3px; /* spacing between arrow and text */
+    display: flex;
+    align-items: center;
+    gap: 3px;
     margin-bottom: 6px;
   }
 
-  /* Heading size */
   .footer-heading {
     font-size: 1.15rem !important;
   }
 
-  /* Company text spacing */
   .footer-company {
     margin-left: 0.76rem !important;
     line-height: 1 !important;
@@ -151,7 +165,7 @@ footer hr {
   }
 
   .footer-link {
-    white-space: nowrap; /* keeps text in a single line */
+    white-space: nowrap;
     font-size: 0.85rem;
   }
 
@@ -160,7 +174,6 @@ footer hr {
     line-height: 1.5rem !important;
   }
 
-  /* Keep all columns in one row */
   .footer-brand-col,
   .footer-col {
     display: flex;
@@ -169,9 +182,161 @@ footer hr {
     margin-bottom: 0 !important;
   }
 
-  /* Reduce arrow icon size */
   .footer-arrow svg {
     width: 8px;
     height: 8px;
+  }
+}
+
+/* ======================================================= */
+/* ---------- MOBILE STYLING (Max 575px, for xs screen sizes) ---------- */
+/* ======================================================= */
+@media (max-width: 575px) {
+  /* Global Mobile Wrapper Padding */
+  .site-footer {
+    padding: 40px 15px 20px;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* --- 2. CONTACTS Column Styling --- */
+  /* ------------------------------------------------------------------ */
+  .footer-col.order-md-4 {
+    text-align: center;
+    margin-bottom: 40px !important;
+  }
+
+  /* Hide the 'Contacts' heading */
+  .footer-col.order-md-4 .footer-heading {
+    display: none !important;
+  }
+
+  /* **Phone Numbers Group** */
+  .footer-phone-group {
+    display: block;
+    margin-bottom: 25px;
+    position: static;
+    padding-bottom: 0;
+  }
+
+  .footer-phone-group::after {
+    content: none;
+  }
+
+  .footer-contact {
+    /* Align items on same line */
+    display: inline-block !important;
+    font-size: 1.1rem;
+    line-height: 1.5 !important;
+
+    /* NEW: Increased right margin for gap between numbers */
+    margin: 0 1rem !important;
+    color: #fff;
+  }
+
+  /* Clean up old pseudo-element icons now that they are in JSX */
+  .footer-phone-group::before,
+  .mobile-address-placeholder::before {
+    content: none;
+    display: none;
+  }
+
+  /* Email Styling (Middle) and Ruler/Separator */
+  .footer-email {
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-top: 0;
+    margin-bottom: 25px !important;
+    position: relative;
+  }
+
+  /* 1. ADD: Horizontal Line Separator (Ruler) - BEFORE Email (Top Line) */
+  .footer-email::before {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.4);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* 2. ADD: Horizontal Line Separator (Ruler) - AFTER Email (Middle Line) */
+  .footer-email::after {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.4);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Address Styling (Bottom) */
+  .footer-address {
+    font-size: 0.95rem;
+  }
+
+  .mobile-address-placeholder {
+    text-align: center;
+    position: relative;
+    padding-bottom: 25px;
+    margin-bottom: 25px !important;
+  }
+
+  /* 3. ADD: Horizontal Line Separator (Ruler) - AFTER Address (Bottom Line) */
+  .mobile-address-placeholder::after {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.4);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* --- 3. NAVIGATION Columns Styling (3-across) --- */
+  /* ------------------------------------------------------------------ */
+  .site-footer .row > .footer-col:not(.order-md-4) {
+    text-align: left;
+    margin-bottom: 30px !important;
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .footer-heading {
+    font-size: 0.95rem !important;
+    margin-bottom: 8px !important;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .footer-list {
+    text-align: center;
+  }
+
+  .footer-arrow {
+    display: none !important;
+  }
+
+  /* Links styling for mobile */
+  .footer-list-item {
+    display: block;
+    margin-bottom: 1px;
+  }
+
+  .footer-link {
+    font-size: 0.7rem;
+    padding-left: 0 !important;
+    line-height: 1.2;
   }
 }

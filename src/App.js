@@ -24,7 +24,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Pages with Header + Footer */}
         <Route
           path="/"
           element={
@@ -33,14 +32,24 @@ function App() {
             </MainLayout>
           }
         />
+
         <Route
-          path="/products/:slug"
+          path="/fruit-products/:slug"
           element={
             <MainLayout>
               <ProductDetail />
             </MainLayout>
           }
         />
+        <Route
+          path="/vegetable-products/:slug"
+          element={
+            <MainLayout>
+              <ProductDetail />
+            </MainLayout>
+          }
+        />
+
         <Route
           path="/category/:type"
           element={
@@ -58,7 +67,6 @@ function App() {
           }
         />
 
-        {/* 404 Page WITHOUT Header & Footer */}
         <Route
           path="*"
           element={

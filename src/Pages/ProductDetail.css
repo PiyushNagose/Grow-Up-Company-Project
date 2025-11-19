@@ -1,3 +1,12 @@
+:root {
+  --pokrovske-green: #013220; /* Based on your logo/footer color */
+  --bg-white: #ffffff; /* Assuming white is defined */
+}
+
+/* ---------------------------------------------------- */
+/* WRAPPER & BANNER STYLES (Existing) */
+/* ---------------------------------------------------- */
+
 /* Wrap whole page */
 .product-page-wrapper {
   background: var(--bg-white);
@@ -28,19 +37,23 @@
   background: rgba(0, 0, 0, 0.35);
 }
 
+/* ---------------------------------------------------- */
+/* DESKTOP/LAPTOP STYLES (Existing Side-by-Side) */
+/* ---------------------------------------------------- */
+
 /* Main image + Thumbnails wrapper */
 .product-image-col {
   display: flex;
-  align-items: center !important; /* align thumbnails vertically at center */
-  gap: 25px; /* distance between main image and thumbnails */
+  align-items: center !important;
+  gap: 25px;
   flex-wrap: nowrap;
   justify-content: flex-end;
 }
 
 .product-image-wrapper {
   display: flex;
-  align-items: center !important; /* align thumbnails vertically at center */
-  gap: 25px; /* distance between main image and thumbnails */
+  align-items: center !important;
+  gap: 25px;
   flex-wrap: nowrap;
   justify-content: flex-end;
 }
@@ -53,6 +66,8 @@
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
   flex-shrink: 0;
+  background-color: #f7f7f7;
+  position: relative;
 }
 
 .main-product-image {
@@ -65,8 +80,8 @@
 .thumbnail-column {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* center vertically beside main image */
-  gap: 15px; /* equal spacing between thumbnails */
+  justify-content: center;
+  gap: 15px;
 }
 
 .thumbnail-image {
@@ -77,18 +92,33 @@
   cursor: pointer;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s;
+  border: none;
+  cursor: pointer;
+  outline: 0 !important;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .thumbnail-image:hover {
   transform: scale(1.05);
 }
 
-/* Tablet (992px and below) */
+.thumbnail-image:focus,
+.thumbnail-image:active,
+.thumbnail-image:focus-visible {
+  outline: 0 !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  background-color: transparent !important;
+}
+
+/* ---------------------------------------------------- */
+/* TABLET STYLES (Existing) */
+/* ---------------------------------------------------- */
+
 @media (max-width: 992px) {
   .product-detail-layout {
     display: flex;
-    flex-wrap: nowrap; /* keep main + image side by side */
-    align-items: center; /* vertically center image next to text */
+    flex-wrap: nowrap;
+    align-items: center;
     gap: 58px;
   }
   .product-banner {
@@ -96,34 +126,34 @@
   }
 
   .product-info-col {
-    flex: 0 0 60%; /* text column takes ~60% */
+    flex: 0 0 60%;
     max-width: 60%;
   }
 
   .product-image-col {
-    flex: 0 0 40%; /* image column takes ~40% */
+    flex: 0 0 40%;
     max-width: 40%;
     display: flex;
-    justify-content: center; /* center horizontally in column */
-    align-items: center; /* center vertically to text */
+    justify-content: center;
+    align-items: center;
   }
 
   .product-image-wrapper {
-    display: flex; /* main image + vertical thumbnails side by side */
-    flex-direction: row; /* horizontal layout for main + thumbnails */
-    align-items: center; /* center thumbnails vertically */
-    gap: 10px; /* spacing between main image and thumbnails */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
   }
 
   .main-image-box {
-    width: 180px; /* smaller for tablet */
+    width: 180px;
     height: 180px;
   }
 
   .thumbnail-column {
     display: flex;
-    flex-direction: column; /* vertical stack */
-    justify-content: center; /* center vertically beside main image */
+    flex-direction: column;
+    justify-content: center;
     gap: 10px;
   }
 
@@ -133,32 +163,88 @@
   }
 }
 
-/* Mobile (below 768px) */
+/* ---------------------------------------------------- */
+/* MOBILE STYLES (Below 768px) */
+/* (Implements Image -> Thumbnails -> Content structure) */
+/* ---------------------------------------------------- */
 @media (max-width: 767px) {
   .product-detail-layout {
     flex-direction: column;
     gap: 30px;
+    align-items: flex-start !important;
   }
 
   .product-info-col,
   .product-image-col {
     flex: 0 0 100%;
     max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0 auto;
   }
 
-  .main-image-box {
-    width: 150px;
-    height: 150px;
+  .main-image-box,
+  .thumbnail-column,
+  .product-image-wrapper {
+    display: none !important;
   }
 
-  .thumbnail-column {
-    flex-direction: row;
+  .product-image-wrapper-mobile {
+    width: 100%;
+    padding: 0 15px;
+    display: block;
+  }
+
+  .main-image-box-mobile {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 30px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    background-color: #f7f7f7;
+    margin-top: 2.5rem;
+  }
+
+  .main-image-box-mobile .main-product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 25px;
+  }
+
+  .thumbnail-row-mobile {
+    width: 100%;
+    margin-top: 15px;
+    margin-left: 0;
+    margin-right: 0;
     justify-content: center;
-    margin-top: 10px;
+  }
+  .thumbnail-row-mobile .col-4 {
+    position: relative;
   }
 
-  .thumbnail-image {
-    width: 40px;
-    height: 40px;
+  .thumbnail-image-mobile {
+    width: 100%;
+    height: auto;
+    padding-top: 100%;
+
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    border-radius: 16px;
+    transition: border 0.2s ease;
+    cursor: pointer;
+  }
+
+  .product-info-col {
+    padding: 0 15px !important;
+    margin-top: 15px !important;
+  }
+
+  .product-info-col .product-details-content-wrapper {
+    margin-top: 2.5rem !;
   }
 }

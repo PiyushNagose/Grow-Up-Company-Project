@@ -1,7 +1,7 @@
 /* Wrap whole page */
 .corporate-page-wrapper {
   background: var(--bg-white);
-  padding-bottom: 70px; /* slightly increased for cleaner layout */
+  padding-bottom: 70px;
 }
 
 /* ---------------------------
@@ -135,34 +135,55 @@
     height: 180px;
   }
 }
-/* ---------------------------
-   Mobile Styling (<768px)
-   --------------------------- */
-@media (max-width: 767px) {
+
+/* ============================================== */
+/* 5. MOBILE STYLING (Max 575px for stacking) */
+/* ============================================== */
+@media (max-width: 575px) {
+  /* Global Content Adjustments */
+  .corporate-page-wrapper {
+    padding-bottom: 40px;
+  }
+
   .corporate-layout {
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  .corporate-banner {
-    height: 240px;
-    margin-bottom: 50px;
-  }
-
-  .corporate-title,
-  .corporate-text {
-    text-align: center;
-  }
-
-  .corporate-side-image-wrapper {
-    width: 180px;
-    height: 180px;
-    border-radius: 14px;
-    margin: 0 auto;
+    margin-top: 40px !important;
+    flex-wrap: wrap;
   }
 
   .corporate-image-col {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
+
+  .corporate-side-image-wrapper {
+    width: 370px;
+    height: 180px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .corporate-text-col {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .corporate-text-wrapper {
+    padding: 15px 0;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .corporate-title {
+    font-size: 1.8rem !important;
+    margin-bottom: 15px !important;
+  }
+
+  .corporate-text {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
   }
 }

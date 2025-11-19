@@ -1,6 +1,6 @@
-/* ------------------------------------------
-   Navbar & Header
-------------------------------------------- */
+/* =================================================================
+   1. GLOBAL & NAVBAR STYLES
+================================================================= */
 .navbar {
   position: fixed;
   width: 100%;
@@ -11,6 +11,11 @@
   box-shadow: none;
   border: none;
   transition: all 0.4s ease;
+}
+
+.navbar-brand {
+  padding: 0 !important;
+  margin-right: 0 !important;
 }
 
 .navbar-inner-scrolled {
@@ -29,19 +34,39 @@
   width: 100%;
 }
 
-.header-inner::after {
-  content: "";
-  position: absolute;
-  bottom: -12px;
-  left: 0;
-  right: 0;
-  height: 1.4px;
-  background-color: rgba(255, 255, 255, 0.55);
-  pointer-events: none;
+@media (min-width: 600px) {
+  .header-inner::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    height: 1.4px;
+    background-color: rgba(255, 255, 255, 0.55);
+    pointer-events: none;
+  }
 }
 
 /* ------------------------------------------
-   Navigation Links
+   2. Logo Styling
+------------------------------------------- */
+
+.logo {
+  width: 4.5rem;
+  height: 4.5rem;
+  transition: width 0.3s, height 0.3s, transform 0.3s;
+  /* Removed conflicting margin-left rule */
+  transform: scale(1);
+}
+
+/* Logo Scrolled Size (Desktop/Tablet) */
+.navbar-inner-scrolled .logo {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+/* ------------------------------------------
+   3. Navigation Links
 ------------------------------------------- */
 .header-link-animation {
   position: relative;
@@ -78,11 +103,6 @@
     opacity: 1;
   }
 
-  /* Dropdown hover for desktop */
-  .navbar .dropdown:hover > .dropdown-menu {
-    display: block;
-  }
-
   /* Contact icon rotate on hover */
   .contact-btn-animated:hover .MuiSvgIcon-root {
     transform: rotate(-360deg);
@@ -90,12 +110,32 @@
   }
 }
 
-/* Dropdown menu */
+/* ------------------------------------------
+   4. Dropdown Menu & Items (Desktop/Tablet)
+------------------------------------------- */
+
+/* 1. REMOVE the default React-Bootstrap arrow */
+.navbar .nav-item-custom.no-arrow .dropdown-toggle::after {
+  display: none !important;
+}
+
+/* 2. Style the custom MUI Chevron Icon (No Animation) */
+.navbar .static-chevron {
+  transform: none;
+  transition: none;
+  vertical-align: middle;
+}
+
+/* Dropdown menu container */
 .navbar .dropdown-menu {
   background: white !important;
   border: none;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-  display: none;
+}
+
+.dropdown-item::after {
+  content: none !important;
+  transform: none !important;
 }
 
 /* Dropdown items */
@@ -110,7 +150,9 @@
   background: #f0f0f0 !important;
 }
 
-/* Contact button */
+/* ------------------------------------------
+   5. Contact button
+------------------------------------------- */
 .contact-btn-animated {
   color: white !important;
   border: 1.75px solid white !important;
@@ -119,10 +161,15 @@
   text-transform: none;
   margin-left: 1.75rem !important;
   background: transparent;
+  transition: all 0.3s ease-in-out;
+}
+.contact-btn-animated:hover {
+  border-color: transparent !important;
+  background: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* ------------------------------------------
-   Tablet adjustments (iPad Mini/Pro 600px–1023px)
+   6. Tablet adjustments (600px–1023px)
 ------------------------------------------- */
 @media (min-width: 600px) and (max-width: 1023px) {
   /* Remove hover animations for tablet */
@@ -135,11 +182,12 @@
     transform: none !important;
     opacity: 0;
   }
+
   .logo {
-    transform: scale(0.75);
+    transform: scale(1);
   }
 
-  /* Dropdown click only for tablet */
+  /* Disable hover-based dropdowns for tablet (click-only) */
   .navbar .dropdown:hover > .dropdown-menu {
     display: none !important;
   }
@@ -153,31 +201,27 @@
   .contact-btn-animated {
     font-size: 0.8rem !important;
   }
+
+  /* Contact Overlay adjustments for tablet */
   .contact-overlay {
     display: flex !important;
-    align-items: center !important; /* vertical center */
-    justify-content: center !important; /* horizontal center */
-    height: 100vh; /* full viewport height */
-    padding: 0 24px; /* optional horizontal padding */
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100vh;
+    padding: 0 24px;
   }
-
   .contact-overlay .overlay-window {
-    margin-bottom: 20rem; /* remove default margin */
-    position: relative; /* keep relative for close button */
-    display: block; /* block to avoid flex affecting content */
-  }
-
-  /* Keep content inside the box same as desktop */
-  .contact-card-inner {
-    text-align: left; /* content aligned left */
-    margin: 0 auto 2px; /* margin auto horizontally to stay centered */
+    margin-bottom: 0 !important;
+    position: relative;
+    display: block;
   }
 }
 
 /* ------------------------------------------
-   Contact Overlay (visual only)
+   7. Contact Overlay (visual only)
 ------------------------------------------- */
 .contact-overlay {
+  /* ... (Contact overlay styles remain as provided) ... */
   position: fixed;
   inset: 0;
   display: flex;
@@ -271,4 +315,119 @@
 
 .contact-details > div + div {
   margin-top: 4px;
+}
+
+/* ------------------------------------------
+   8. Mobile Menu Styles (xs only)
+------------------------------------------- */
+
+/* The full-screen overlay for the mobile menu */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 998;
+  background-color: rgba(15, 74, 15, 0.98);
+  transform: translateX(100%);
+  transition: transform 0.4s ease-out;
+  padding-top: 100px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.mobile-menu-overlay.show {
+  transform: translateX(0);
+}
+
+/* Container for the links inside the menu */
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  width: 100%;
+  text-align: left;
+}
+
+/* Style for non-dropdown links (e.g., Home) */
+.mobile-link {
+  color: white !important;
+  font-size: 1.4rem;
+  padding: 15px 0;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+.mobile-link:hover {
+  color: white !important;
+  opacity: 0.8;
+}
+
+/* Style the NavDropdown container in mobile menu */
+.mobile-menu-overlay .nav-item-custom {
+  padding: 0 !important;
+  margin: 0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Style the Dropdown Toggle (e.g., "Corporate") */
+.mobile-menu-overlay .dropdown-toggle {
+  color: white !important;
+  font-size: 1.4rem;
+  padding: 15px 0 !important;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent !important;
+  box-shadow: none !important;
+  pointer-events: auto;
+}
+
+.mobile-menu-overlay .dropdown-menu {
+  position: static !important;
+  background: transparent !important;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  border-top: none;
+  width: 100%;
+}
+
+.mobile-menu-overlay .dropdown-menu.show {
+  display: block !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Style the inner Link component (The actual clickable area) */
+.mobile-menu-overlay .dropdown-item a {
+  padding: 10px 10px 10px 20px !important;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.mobile-menu-overlay .dropdown-item a:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  text-decoration: none;
+}
+
+.mobile-menu-overlay .dropdown-toggle .MuiSvgIcon-root {
+  pointer-events: none;
+}
+
+/* Additional space for the button at the bottom of the menu */
+.mobile-nav-links .contact-btn-animated {
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+  width: 100%;
+  text-align: center;
+}
+
+.mobile-menu-overlay .nav-item-custom.no-arrow .dropdown-toggle::after {
+  display: none !important;
 }
