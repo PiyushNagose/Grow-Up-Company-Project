@@ -70,44 +70,52 @@ const ProductDetail = () => {
   };
 
   const ProductInfo = () => (
-    <Col lg={7} md={12} className="mb-3 mb-lg-0 content">
-      <Box className="product-details-content-wrapper">
+    <Box
+      className="product-details-content-wrapper flex justify-content-start"
+      style={{ marginLeft: isMobile ? "20px" : "0px" }}
+    >
+      <Typography
+        variant="h3"
+        component="h1"
+        gutterBottom
+        sx={{ fontWeight: "bold", fontSize: { xs: "2.5rem", md: "3rem" } }}
+      >
+        {product.name}
+      </Typography>
+
+      <Box sx={{ mt: 2, mb: 2 }}>
         <Typography
-          variant="h3"
-          component="h1"
-          gutterBottom
-          sx={{ fontWeight: "bold" }}
+          variant="h5"
+          sx={{
+            mb: 1,
+            fontWeight: "medium",
+            fontSize: { xs: "1.25rem", md: "1.5rem" },
+          }}
         >
-          {product.name}
+          Product Information
         </Typography>
 
-        <Box sx={{ mt: 2, mb: 2 }}>
-          <Typography variant="h5" sx={{ mb: 1, fontWeight: "medium" }}>
-            Product Information
-          </Typography>
-
-          <ul style={{ listStyleType: "none", padding: 0 }}>
-            {Object.entries(product.details).map(([key, value]) => (
-              <li key={key} style={{ padding: "5px 0" }}>
-                <span style={{ fontWeight: "bold" }}>
-                  {key.charAt(0).toUpperCase() + key.slice(1)}:
-                </span>
-                {value}
-              </li>
-            ))}
-          </ul>
-        </Box>
-
-        <Typography variant="body1" sx={{ mt: 3, mb: 3 }}>
-          Our {product.name} is grown in the fertile soils of Turkey, offering
-          exceptional quality and freshness.
-        </Typography>
+        <ul style={{ listStyleType: "none", padding: 0 }}>
+          {Object.entries(product.details).map(([key, value]) => (
+            <li key={key} style={{ padding: "5px 0" }}>
+              <span style={{ fontWeight: "bold" }}>
+                {key.charAt(0).toUpperCase() + key.slice(1)}:
+              </span>{" "}
+              {value}
+            </li>
+          ))}
+        </ul>
       </Box>
-    </Col>
+
+      <Typography variant="body1" sx={{ mt: 3, mb: 3 }}>
+        Our {product.name} is grown in the fertile soils of Turkey, offering
+        exceptional quality and freshness.
+      </Typography>
+    </Box>
   );
 
   const MobileImageSection = () => (
-    <Col xs={12} className="product-image-col mb-4">
+    <Col xs={12} className="product-image-col mb-4 mt-4">
       <Box className="product-image-wrapper-mobile">
         {/* 1. Main Image */}
         <Box className="main-image-box-mobile">
@@ -120,7 +128,7 @@ const ProductDetail = () => {
           />
         </Box>
 
-        <Row className="thumbnail-row-mobile gx-2 mt-2 justify-content-center">
+        <Row className="thumbnail-row-mobile gx-2 mt-2 justify-content-start">
           {thumbnails.map((thumb, idx) => (
             <Col xs={4} key={idx} className="p-1">
               <Box
@@ -163,7 +171,7 @@ const ProductDetail = () => {
         <Row className="product-detail-layout gx-0">
           {isMobile && <MobileImageSection />}
 
-          <Col lg={7} md={7} sm={12} xs={12} className="product-info-col">
+          <Col lg={7} md={6} sm={12} className="product-info-col mb-4">
             <ProductInfo />
           </Col>
 

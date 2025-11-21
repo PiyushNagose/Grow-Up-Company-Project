@@ -1,3 +1,10 @@
+/**
+ * * ====================================================================
+ * 1. PRODUCT DATA
+ * The image paths below are relative to your 'public' folder (e.g., /images/Pomegranate-Main.jpg).
+ * These are the actual paths intended for use in the application.
+ * ====================================================================
+ */
 export const PRODUCTS = [
   {
     name: "Pomegranate",

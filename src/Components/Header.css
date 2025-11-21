@@ -124,9 +124,8 @@
   vertical-align: middle;
 }
 .navbar .dropdown-menu .dropdown-item .MuiSvgIcon-root {
-  color: #333 !important;
+  color: #22780b !important;
 }
-
 /* Dropdown menu container */
 .navbar .dropdown-menu {
   background: white !important;
@@ -141,10 +140,11 @@
 
 /* Dropdown items */
 .dropdown-item {
-  color: black !important;
-  padding: 10px 18px;
+  color: #22780b !important;
+  padding: 0px 10px !important;
   font-weight: 400 !important;
   text-transform: none !important;
+  font-size: 0.85rem !important;
 }
 
 .dropdown-item:hover {
@@ -337,7 +337,6 @@
   box-sizing: border-box;
   overflow-y: auto;
 }
-
 .mobile-menu-overlay.show {
   transform: translateX(0);
 }
@@ -353,9 +352,10 @@
 
 /* Style for non-dropdown links (e.g., Home) */
 .mobile-link {
-  color: white !important;
-  font-size: 1.4rem;
+  color: black !important;
+  font-size: 1.05rem;
   padding: 15px 0;
+  margin-left: 0.15rem !important;
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transform: none !important;
@@ -431,4 +431,55 @@
 
 .mobile-menu-overlay .nav-item-custom.no-arrow .dropdown-toggle::after {
   display: none !important;
+}
+
+/* ===== Force Offcanvas / mobile menu to sit flush at top (mobile only) ===== */
+@media (max-width: 599px) {
+  /* Ensure the offcanvas container covers the full viewport and starts at 0 */
+  .logo {
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+    margin-left: 1.2rem !important;
+  }
+  .navbar-inner-scrolled .logo {
+    background-color: rgba(15, 74, 15, 0.95) !important;
+  }
+
+  /* Ensure the green header strip inside offcanvas is flush at top */
+  .mobile-menu-overlay .offcanvas-header,
+  .offcanvas-header {
+    position: relative !important;
+    top: 0 !important;
+    margin: 0 !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  /* Offcanvas body sits immediately below the header */
+  .mobile-menu-overlay .offcanvas-body,
+  .offcanvas-body {
+    padding-top: 0 !important;
+  }
+
+  /* If some script added inline style to body (Bootstrap sometimes adjusts padding),
+     ensure it does not push the content down while the offcanvas is open */
+  /* Make sure header area is on top of backdrop */
+  .offcanvas,
+  .mobile-menu-overlay {
+    z-index: 2000 !important; /* higher than site navbar/backdrop but less than modal if needed */
+  }
+
+  /* If any element has a pre-set large top padding causing the gap, override it */
+  .mobile-menu-overlay,
+  .mobile-nav-links,
+  .offcanvas-body,
+  .offcanvas-header {
+    padding-top: 0 !important;
+  }
+
+  /* Optional: remove any outline focus border you might see as blue box around active accordion item */
+  .accordion-button:focus {
+    box-shadow: none !important;
+  }
 }

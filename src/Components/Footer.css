@@ -9,7 +9,7 @@
 
 .site-footer {
   /* *** CHANGE APPLIED HERE (New Background Color) *** */
-  background-color: rgba(15, 74, 15, 0.95);
+  background-color: var(--pokrovske-green) !important;
   color: #ffffff !important;
   padding: 50px 0;
   position: relative;
@@ -340,3 +340,57 @@ footer hr {
     line-height: 1.2;
   }
 }
+
+/* Force exact site footer green and remove overlays/shadows */
+:root {
+  --pokrovske-green: #084902; /* exact brand hex */
+}
+
+/* Ensure footer uses the exact green (no transparency) */
+.site-footer {
+  background-color: var(--pokrovske-green) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+}
+
+/* Remove any overlay pseudo-elements that could darken it */
+.site-footer::before,
+.site-footer::after,
+.site-footer .overlay,
+.site-footer .backdrop {
+  display: none !important;
+  content: none !important;
+}
+
+/* Remove inner shadow / inset that could change perceived color */
+.site-footer,
+.site-footer * {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Make sure links / icons / chevrons are white and readable */
+.site-footer .footer-link,
+.site-footer .footer-heading,
+.site-footer .footer-contact,
+.site-footer .footer-email,
+.site-footer .footer-address,
+.site-footer .footer-arrow svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+/* If your logo is a colored SVG or raster with dark green parts,
+   ensure it's visible: optionally invert or use brightness if needed */
+.site-footer .footer-logo {
+  /* remove aggressive filters */
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Defensive: if a global variable gets overridden, force hex as fallback */
+.site-footer {
+  background-color: #084902 !important;
+}
+

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { Typography, Button, Box } from "@mui/material";
-import "./CorporateLinks.css";
 
 const HomeHero = () => (
   <Box
