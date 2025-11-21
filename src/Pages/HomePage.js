@@ -284,7 +284,7 @@ const HomeHero = () => (
           textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
           textAlign: "left",
           padding: { xs: "0 34px", sm: "0" },
-          marginLeft: { sm: "2rem" },
+          marginLeft: { sm: "1.65rem", lg: "0", md: "0"},
         }}
       >
         <Typography
