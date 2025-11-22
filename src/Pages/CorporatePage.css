@@ -1,3 +1,8 @@
+:root {
+  --bg-white: #ffffff;
+  --text-dark: #212529;
+}
+
 /* Wrap whole page */
 .corporate-page-wrapper {
   background: var(--bg-white);
@@ -6,7 +11,7 @@
 
 /* ---------------------------
    GLOBAL BANNER – with dark overlay
-   --------------------------- */
+--------------------------- */
 .corporate-banner {
   width: 100%;
   height: 350px;
@@ -32,6 +37,7 @@
   background: rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
+
 .corporate-text-wrapper {
   padding-left: 0 !important;
   margin-left: 0 !important;
@@ -46,7 +52,7 @@
 
 /* ---------------------------
    Title Styling
-   --------------------------- */
+--------------------------- */
 .corporate-title {
   font-weight: 700 !important;
   color: #212529;
@@ -56,7 +62,7 @@
 
 /* ---------------------------
    Content Styling
-   --------------------------- */
+--------------------------- */
 .corporate-text {
   font-size: 1.15rem !important;
   line-height: 1.9 !important;
@@ -68,24 +74,26 @@
 
 /* ---------------------------
    Right-Side Image (fixed size)
-   --------------------------- */
+--------------------------- */
 .corporate-side-image-wrapper {
   width: 260px;
   height: 260px;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
 }
 
 .corporate-side-image-wrapper img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover !important;
+  display: block;
 }
 
 /* ---------------------------
    Layout Spacing
-   --------------------------- */
+--------------------------- */
 .corporate-layout {
   align-items: flex-start;
   gap: 0 !important;
@@ -104,42 +112,48 @@
 }
 
 /* --------------------------- */
+/* TABLET STYLES */
 @media (max-width: 992px) {
   .corporate-layout {
     flex-wrap: nowrap; /* prevent wrapping */
     align-items: center; /* vertically center image relative to text */
     gap: 20px;
   }
+
   .corporate-banner {
-    height: 280px;
+    height: 280px; /* optional: smaller height for tablets */
   }
 
   .corporate-text-col {
     flex: 0 0 65%; /* adjust width as needed */
     max-width: 65%;
   }
+
   .corporate-title {
     font-size: 2.5rem !important;
   }
 
   .corporate-image-col {
-    flex: 0 0 30%; /* adjust width as needed */
-    max-width: 30%;
+    flex: 0 0 35%; /* slightly larger to fit image */
+    max-width: 35%;
     display: flex;
     justify-content: flex-end;
     align-items: center; /* vertical center */
   }
 
+  /* Reduced image size for tablets */
   .corporate-side-image-wrapper {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
   }
 }
 
-/* ============================================== */
-/* 5. MOBILE STYLING (Max 575px for stacking) */
-/* ============================================== */
-@media (max-width: 575px) {
+/* ==============================================
+   MOBILE STYLING — apply to phones (iOS + Android)
+================================================================= */
+@media (max-width: 575px),
+  (max-device-width: 575px),
+  (pointer: coarse) and (max-width: 800px) {
   /* Global Content Adjustments */
   .corporate-page-wrapper {
     padding-bottom: 40px;
@@ -158,11 +172,15 @@
     margin-bottom: 25px;
   }
 
+  /* Fixed mobile image size */
   .corporate-side-image-wrapper {
-    width: 370px;
-    height: 180px;
+    width: 85%;
+    max-width: 370px;
+    height: 200px; /* fixed height for consistent swap */
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    object-fit: cover;
+    margin: 0 auto !important;
   }
 
   .corporate-text-col {
@@ -171,7 +189,7 @@
   }
 
   .corporate-text-wrapper {
-    padding: 15px 0;
+    padding: 15px 17px !important;
     background-color: transparent;
     box-shadow: none;
     border-radius: 0;
@@ -185,5 +203,23 @@
   .corporate-text {
     font-size: 1rem !important;
     line-height: 1.6 !important;
+  }
+
+  .corporate-side-image-wrapper img,
+  .corporate-side-image-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+/* Extra narrow phones: slightly smaller typography */
+@media (max-width: 360px) {
+  .corporate-title {
+    font-size: 1.5rem !important;
+  }
+  .corporate-text {
+    font-size: 0.95rem !important;
   }
 }
