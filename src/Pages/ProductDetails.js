@@ -3,14 +3,14 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { Typography, Box, useMediaQuery } from "@mui/material";
 import { getProductBySlug } from "../data";
-import HomeHero from "./HomeHero";
+import HomeHero from "./HomeHero"; // adjust path if needed
 import "./ProductDetail.css";
 
 const ProductDetail = () => {
   const { slug } = useParams();
 
   // ----------------------------------------------------
-  // 1. CALL ALL HOOKS FIRST
+  // 1. CALL ALL HOOKS FIRST (Unconditional)
   // ----------------------------------------------------
   const isMobile = useMediaQuery("(max-width:599px)");
 
@@ -18,15 +18,15 @@ const ProductDetail = () => {
 
   const [productData, setProductData] = useState(initialFetch);
   const [currentMainImage, setCurrentMainImage] = useState(
-    initialFetch ? initialFetch.images.main : "",
+    initialFetch ? initialFetch.images.main : ""
   );
   const [thumbnails, setThumbnails] = useState(
-    initialFetch ? initialFetch.images.thumbnails : [],
+    initialFetch ? initialFetch.images.thumbnails : []
   );
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   // ----------------------------------------------------
-  // 2. EFFECTS
+  // 2. EFFECTS AND EARLY RETURNS
   // ----------------------------------------------------
   useEffect(() => {
     const newProduct = getProductBySlug(slug);
@@ -36,12 +36,6 @@ const ProductDetail = () => {
       setCurrentMainImage(newProduct.images.main);
       setThumbnails(newProduct.images.thumbnails);
       setIsImageLoaded(false);
-
-      // 🔥 PRELOAD THUMBNAIL IMAGES (KEY FIX)
-      newProduct.images.thumbnails.forEach((src) => {
-        const img = new Image();
-        img.src = src;
-      });
     }
   }, [slug]);
 
@@ -58,7 +52,7 @@ const ProductDetail = () => {
   const product = productData;
 
   // ----------------------------------------------------
-  // 3. HANDLERS
+  // 3. HANDLERS AND SUB-COMPONENTS
   // ----------------------------------------------------
   const handleImageSwap = (clickedThumbUrl) => {
     const clickedIndex = thumbnails.findIndex((url) => url === clickedThumbUrl);
@@ -90,21 +84,30 @@ const ProductDetail = () => {
       </Typography>
 
       <Box sx={{ mt: 2, mb: 2 }}>
-        <Typography variant="h5" sx={{ mb: 1, fontWeight: "medium" }}>
+        <Typography
+          variant="h5"
+          sx={{
+            mb: 1,
+            fontWeight: "medium",
+            fontSize: { xs: "1.25rem", md: "1.5rem" },
+          }}
+        >
           Product Information
         </Typography>
 
         <ul style={{ listStyleType: "none", padding: 0 }}>
           {Object.entries(product.details).map(([key, value]) => (
             <li key={key} style={{ padding: "5px 0" }}>
-              <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong>{" "}
+              <span style={{ fontWeight: "bold" }}>
+                {key.charAt(0).toUpperCase() + key.slice(1)}:
+              </span>{" "}
               {value}
             </li>
           ))}
         </ul>
       </Box>
 
-      <Typography variant="body1" sx={{ mt: 3 }}>
+      <Typography variant="body1" sx={{ mt: 3, mb: 3 }}>
         Our {product.name} is grown in the fertile soils of Turkey, offering
         exceptional quality and freshness.
       </Typography>
@@ -114,6 +117,7 @@ const ProductDetail = () => {
   const MobileImageSection = () => (
     <Col xs={12} className="product-image-col mb-4 mt-4">
       <Box className="product-image-wrapper-mobile">
+        {/* 1. Main Image */}
         <Box className="main-image-box-mobile">
           <img
             src={currentMainImage}
@@ -124,16 +128,21 @@ const ProductDetail = () => {
           />
         </Box>
 
-        <Row className="thumbnail-row-mobile gx-2 mt-2">
+        <Row className="thumbnail-row-mobile gx-2 mt-2 justify-content-start">
           {thumbnails.map((thumb, idx) => (
             <Col xs={4} key={idx} className="p-1">
               <Box
-                onClick={() => handleImageSwap(thumb)}
-                className="thumbnail-image-mobile"
                 style={{
                   cursor: "pointer",
+                  border:
+                    currentMainImage === thumb
+                      ? "2px solid var(--pokrovske-green)"
+                      : "2px solid transparent",
                   backgroundImage: `url(${thumb})`,
+                  position: "relative",
                 }}
+                onClick={() => handleImageSwap(thumb)}
+                className="thumbnail-image-mobile"
               />
             </Col>
           ))}
@@ -145,8 +154,10 @@ const ProductDetail = () => {
   // ----------------------------------------------------
   // 4. MAIN RENDER
   // ----------------------------------------------------
+
   return (
     <Box className="product-page-wrapper">
+      {/* Banner — replaced with HomeHero on mobile only */}
       {isMobile ? (
         <HomeHero />
       ) : (
@@ -176,17 +187,17 @@ const ProductDetail = () => {
                     style={{ opacity: isImageLoaded ? 1 : 0 }}
                   />
                 </Box>
-
                 <Box className="thumbnail-column">
                   {thumbnails.map((thumb, idx) => (
                     <img
                       key={idx}
                       src={thumb}
                       alt={`Thumbnail ${idx + 1}`}
-                      loading="eager" // ⚡ FAST LOAD
+                      style={{
+                        cursor: "pointer",
+                      }}
                       onClick={() => handleImageSwap(thumb)}
                       className="thumbnail-image"
-                      style={{ cursor: "pointer" }}
                     />
                   ))}
                 </Box>
