@@ -32,22 +32,20 @@ const CorporatePage = () => {
 
       <Container>
         <Row className="corporate-layout gx-0">
-          {/* RIGHT IMAGE (Now first in JSX) */}
-          {/* MOBILE: order-1 (Top) | DESKTOP: order-md-2 (Right side) */}
+          {/* RIGHT IMAGE */}
           <Col
             lg={5}
             md={5}
-            sm={12} /* Full width on small screens */
-            xs={12} /* Full width on extra-small screens */
+            sm={12}
+            xs={12}
             className="corporate-image-col order-1 order-md-2"
           >
             <div className="corporate-side-image-wrapper">
-              <img src={image} alt={title} />
+              <img src={image} alt={title} loading="eager" />
             </div>
           </Col>
 
-          {/* LEFT CONTENT (Now second in JSX) */}
-          {/* MOBILE: order-2 (Bottom) | DESKTOP: order-md-1 (Left side) */}
+          {/* LEFT CONTENT */}
           <Col
             lg={7}
             md={7}

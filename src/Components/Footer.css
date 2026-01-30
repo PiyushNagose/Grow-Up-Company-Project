@@ -24,15 +24,16 @@
 }
 
 .footer-company {
-  margin-left: 2.4rem !important;
+  margin-left: 2.9rem !important;
   line-height: 0 !important;
   color: #cf9b36;
 }
 
 .footer-logo {
-  width: 12rem;
+  width: 11rem;
   height: auto;
   display: block;
+  margin-left: 0.9rem !important;
 }
 
 /* ---------------------------------------------------- */
