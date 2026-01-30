@@ -40,7 +40,9 @@ const Card = {
       {children}
     </h5>
   ),
-  Img: (props) => <img {...props} className="w-100 h-100 object-cover" />,
+  Img: (props) => (
+    <img {...props} alt="" className="w-100 h-100 object-cover" />
+  ),
 };
 
 // --- GLOBAL COLORS ---
@@ -284,7 +286,7 @@ const HomeHero = () => (
           textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
           textAlign: "left",
           padding: { xs: "0 34px", sm: "0" },
-          marginLeft: { sm: "1.65rem", lg: "0", md: "0"},
+          marginLeft: { sm: "1.65rem", lg: "0", md: "0" },
         }}
       >
         <Typography
